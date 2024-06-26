@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.workout.work_out">
+    package="com.workout.work_out_app">
    <application
         android:label="work_out"
         android:name="${applicationName}"
