@@ -3,16 +3,29 @@
 class UserProfileStats {
      static List stats = [
     {
-      "title": "achievs",
+      "title": "Full body",
       "value": "25",
+      "img": "imgs/welcomePageOverlay.png",
     },
     {
-      "title": "badges",
-      "value": "3",
+      "title": "Legs",
+      "value": "0",
+      "img": "imgs/loginOverlayImg.png",
     },
     {
-      "title": "workouts",
+      "title": "Hard workout",
       "value": "5",
+      "img": "imgs/welcomeOverlayImg.png",
+    },
+    {
+      "title": "Cardio",
+      "value": "0",
+      "img": "imgs/loginOverlayImg.png",
+    },
+     {
+      "title": "Crossfit",
+      "value": "0",
+      "img": "imgs/welcomeOverlayImg.png",
     },
   ];
 }

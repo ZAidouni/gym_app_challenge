@@ -5,6 +5,7 @@ import 'package:work_out/controller/functionsController.dart';
 import '../../../controller/userProfileOptions/userProfileOptionsController.dart';
 import '../../../helpers/string_methods.dart';
 import 'components/appBar.dart';
+import 'package:work_out/checkout/subscription_redirect_page.dart';
 
 class CustomProfileSettings extends StatelessWidget {
   CustomProfileSettings({Key? key})
@@ -39,8 +40,21 @@ class CustomProfileSettings extends StatelessWidget {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                   child: InkWell(
-                    onTap: userProfileOptionsController
-                        .userProfileOptionsList[i]["optionFunction"],
+                    onTap: () {
+                      if (userProfileOptionsController.userProfileOptionsList[i]["optionTitle"] == "subscription") {
+                        try {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => SubscriptionRedirectPage()),
+                          );
+                        } catch (e, stacktrace) {
+                          print('Erreur: $e');
+                          print('Stacktrace: $stacktrace');
+                        }
+                      } else {
+                        userProfileOptionsController.userProfileOptionsList[i]["optionFunction"]();
+                      }
+                    },
                     child: ListTile(
                       title: Text(
                         capitalize(userProfileOptionsController
