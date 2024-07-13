@@ -43,7 +43,7 @@ class AppTexts {
   static String filterBy = "Filter by :";
   static String cancel = "Cancel";
   static String apply = "Apply";
-  static String configureSettings = "configure profile";
+  static String configureSettings = "settings";
 
   static String hours = "hours";
   static String moves = "moves";
@@ -55,7 +55,8 @@ class AppTexts {
   static String seeAll = 'see all';
   static String somethingWrong = "something wrong";
   static String hey = "Hey,";
-
+  static String subscribe = "s'abonner";
+  static String addToCard = "participer";
   static String profile = "profile";
   static String logOut = "log out";
   static String workoutOfDay = "Workout of the day";

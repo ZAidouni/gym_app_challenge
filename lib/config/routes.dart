@@ -10,7 +10,7 @@ import '../bindings/welcome_binding.dart';
 import '../view/screens/Get started/get_started_page.dart';
 import '../view/screens/auth/forgotPassword.dart';
 import '../view/screens/auth/login_page.dart';
-
+import '../view/screens/homepage/homePage.dart';  
 // To-do: add routes to all screens, ad make the change over the screens
 class Routes {
   static final List<GetPage> pages = [
@@ -38,6 +38,10 @@ class Routes {
       name: "/forgotPassword",
       page: () => ForgotPasswordPage(),
       binding: ForgotPasswordBinding(),
+    ),
+    GetPage(
+      name: "/home",
+      page: () => HomePage(), // Ajoutez cette ligne
     ),
   ];
 }

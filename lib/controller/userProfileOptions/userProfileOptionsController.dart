@@ -5,10 +5,11 @@ import 'package:get/get.dart';
 import 'package:work_out/controller/functionsController.dart';
 import 'package:work_out/view/widgets/general_widgets/button.dart';
 import 'package:work_out/view/widgets/general_widgets/text%20field.dart';
-
+import 'package:work_out/checkout/stripe_checkout.dart';
 import '../../helpers/string_methods.dart';
 import '../functionsController/dialogsAndLoadingController.dart';
 import '../userController/userController.dart';
+import 'package:work_out/view/screens/gym/sessions_page.dart'; // Importez le fichier contenant SessionsPage
 
 class UserProfileOptionsController extends GetxController {
   FunctionsController controller = Get.put(FunctionsController());
@@ -178,6 +179,36 @@ class UserProfileOptionsController extends GetxController {
             backgroundColor: Color(0xff131429));
       }
     },
+{
+  "optionTitle": "subscription",
+  "optionIcon": Icons.subscriptions,
+  "optionFunction": () {
+     try {
+  redirectToCheckout(Get.context!);
+} catch (e, stacktrace) {
+  print('Erreur: $e');
+  print('Stacktrace: $stacktrace');
+}
+  }
+},
+
+{
+  "optionTitle": "Mes séances",
+  "optionIcon": Icons.sports_gymnastics,
+  "optionFunction": () {
+     try {
+   Navigator.push(
+                Get.context!,
+                MaterialPageRoute(builder: (context) => SessionsPage()),
+              );
+} catch (e, stacktrace) {
+  print('Erreur: $e');
+  print('Stacktrace: $stacktrace');
+}
+  }
+},
+
+
     {
       "optionTitle": "Delete user",
       "optionIcon": Icons.delete,

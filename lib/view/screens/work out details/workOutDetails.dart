@@ -12,6 +12,7 @@ import '../../../helpers/string_methods.dart';
 import '../../widgets/general_widgets/actionButton.dart';
 import 'componenets/RatingStars.dart';
 import '../../widgets/general_widgets/button.dart';
+import 'package:work_out/checkout/stripe_checkout.dart';
 
 class WorkOutDetails extends StatelessWidget {
   WorkOutDetails({
@@ -276,25 +277,29 @@ class WorkOutDetails extends StatelessWidget {
                     DelayedDisplay(
                       delay: Duration(milliseconds: delay + 700),
                       child: CustomButton(
-                        onPressed: () {},
+                        onPressed: () {
+                       redirectToCheckout(Get.context!);
+                        },
                         isRounded: false,
-                        text: capitalize("\$ $priceInDollars"),
+                        text: capitalize(AppTexts.subscribe),
                         isOutlined: false,
                       ),
                     ),
-                    const SizedBox(height: 10),
+                    const SizedBox(height: 20),
                     DelayedDisplay(
                       delay: Duration(milliseconds: delay + 800),
                       child: CustomButton(
                         onPressed: () {},
                         isRounded: false,
                         text: hasFreeTrial.toLowerCase() == "true"
-                            ? capitalize(AppTexts.freeTrial)
+                            ? capitalize(AppTexts.addToCard)
                             : 
-                                capitalize(AppTexts.noFreeTrialAvailable),
+                                capitalize(AppTexts.addToCard),
                         isOutlined: true,
                       ),
                     ),
+                   const SizedBox(height: 30),
+
                   ],
                 )
               ],
