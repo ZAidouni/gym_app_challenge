@@ -10,6 +10,14 @@ class GetStartedController extends GetxController {
 
   /// this method is called when user click on a card
   handelChangeInCheckedCardsList(CheckedCard checkedCard) {
+    print(checkedCard.id == 0);
+    if(checkedCard.id == 0){
+    Get.toNamed("/signUp"); 
+
+    }else{
+    Get.toNamed("/signUpCoach"); 
+
+    };
     checkedCardsIds.addIfRemoveElse(
       checkedCard,
       checkedCard.isChecked,

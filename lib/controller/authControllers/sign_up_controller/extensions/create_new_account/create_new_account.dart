@@ -7,6 +7,7 @@ import 'package:work_out/helpers/extension/user_info_validator_extension.dart';
 import '../../../../../config/text.dart';
 import '../../../../../helpers/string_methods.dart';
 import '../../../../../view/screens/auth/EmailVerification.dart';
+import '../../../../../view/screens/auth/EmailCoachVerif.dart';
 import '../../sign_up_controller.dart';
 
 extension CreateNewAccExtension on SignUpController {
@@ -15,6 +16,7 @@ extension CreateNewAccExtension on SignUpController {
   Future<void> createNewAccount({
     required String email,
     required String password,
+    required String siret,
     required String username,
   }) async {
     if (email.isValidEmail &&
@@ -30,19 +32,22 @@ extension CreateNewAccExtension on SignUpController {
           password: password,
         );
 
-        // Here we created acc with firebase auth, the email and password only,  to collect and use more data, we need to store it
         addUserInformationToFirestore(
           credential: credential,
           email: email,
           username: username,
+          siret: siret,
           isEmailVerified: FirebaseAuth.instance.currentUser!.emailVerified,
           uid: credential.user!.uid,
           profileImgPath: "",
           // password: password,
         );
 
-        // On sign up, we should verify our user email (no need to unnecessary checks)
+        if(siret == ""){
         Get.to(() => EmailVerificatioPage());
+        } else {
+          Get.to(() => EmailCoachPage());
+        }
       } on FirebaseAuthException catch (e) {
         Get.back();
         handleErrorCases(e);

@@ -75,8 +75,17 @@ class EmailVerificatioController extends GetxController {
 
   @override
   void onInit() async {
-    // send verification email before page is loading
-    await user!.sendEmailVerification();
+     // Référence au document utilisateur dans Firestore
+      DocumentReference userDocRef = FirebaseFirestore.instance.collection("aboutUsers").doc(user?.uid);
+
+      // Obtenez le document utilisateur
+      DocumentSnapshot userDoc = await userDocRef.get();
+
+      // Vérifiez si le document existe
+      if (userDoc.exists && userDoc.get('siret') == "") {
+         await user!.sendEmailVerification();
+      }
+  //  await user!.sendEmailVerification();
     super.onInit();
   }
 

@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:work_out/view/screens/auth/sign_up_coach.dart';
 import 'package:work_out/view/screens/auth/sign_up_page.dart';
 import 'package:work_out/view/screens/welcome/welcome_page.dart';
 
@@ -27,6 +28,11 @@ class Routes {
     GetPage(
       name: "/signUp",
       page: () => SignUpPage(),
+      binding: SignUpBinding(),
+    ),
+    GetPage(
+      name: "/signUpCoach",
+      page: () => SignUpCoach(),
       binding: SignUpBinding(),
     ),
     GetPage(
