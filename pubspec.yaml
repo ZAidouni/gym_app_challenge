@@ -67,7 +67,7 @@ flutter_native_splash:
   # splash screen to a png image.  This is useful for gradients. The image will be stretch to the
   # size of the app. Only one parameter can be used, color and background_image cannot both be set.
   color: "#232441"
-  image: imgs/logo.png #background_image: "assets/background.png"
+  image: assets/img/gocoach.png #background_image: "assets/background.png"
 
   # Optional parameters are listed below.  To enable a parameter, uncomment the line by removing
   # the leading # character.
@@ -94,7 +94,7 @@ flutter_native_splash:
   # Following are Android 12 specific parameter.
   android_12:
     color: "#232441"
-    image: imgs/logo.png
+    image: assets/img/gocoach.png
     # The image parameter sets the splash screen icon image.  If this parameter is not specified,
     # the app's launcher icon will be used instead.
     # Please note that the splash screen will be clipped to a circle on the center of the screen.
@@ -178,7 +178,7 @@ flutter:
   # the material Icons class.
   uses-material-design: true
   assets:
-    - imgs/
+    - assets/img/
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg
