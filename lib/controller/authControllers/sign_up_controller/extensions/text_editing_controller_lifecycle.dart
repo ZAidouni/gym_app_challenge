@@ -5,6 +5,7 @@ extension TextEditingCtrlLifeCycleExt on SignUpController {
   // This will dispose the text editing controller
   void _disposeTextEditingControllers() {
     signUpEmailController.dispose();
+    signUpSiretController.dispose();
     signUpPasswordController.dispose();
     signUpUserController.dispose();
   }
@@ -12,6 +13,7 @@ extension TextEditingCtrlLifeCycleExt on SignUpController {
   void _initializeTextEditingControllers() {
     signUpUserController = TextEditingController();
     signUpEmailController = TextEditingController();
+    signUpSiretController = TextEditingController();
     signUpPasswordController = TextEditingController();
   }
 

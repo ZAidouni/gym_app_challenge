@@ -11,7 +11,7 @@ import '../../../helpers/string_methods.dart';
 import '../../widgets/general_widgets/mainScreenTitle.dart';
 import '../../widgets/general_widgets/titleWithDescription.dart';
 import 'componenets/get_started_cards_scroll_view.dart';
-
+import 'package:work_out/config/Colors.dart';
 class GetStartedPage extends GetView<GetStartedController>
     with DelayHelperMixin {
   GetStartedPage({Key? key}) : super(key: key);
@@ -92,48 +92,7 @@ class GetStartedPage extends GetView<GetStartedController>
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
-                                Align(
-                                    alignment: Alignment.center,
-                                    child: GetBuilder<GetStartedController>(
-                                      id: controller.rebuildId,
-                                      builder: (controller) {
-                                        return Text(
-                                          "${controller.checkedCardsIds.length} / ${handledCardsList.length}",
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: AppColors.green,
-                                            fontSize: 12,
-                                          ),
-                                        );
-                                      },
-                                    )),
                                 const SizedBox(width: 15),
-                                GetBuilder<GetStartedController>(
-                                  id: controller.rebuildId,
-                                  builder: (controller) {
-                                    return ElevatedButton(
-                                      style: ElevatedButton.styleFrom(
-                                        padding: const EdgeInsets.symmetric(
-                                          horizontal: 20,
-                                        ),
-                                        backgroundColor: Theme.of(context).colorScheme.primary,
-                                      ),
-                                      onPressed: controller
-                                              .hasUserChooserAtLeastOneChoice
-
-                                          ? () {
-                                              Get.toNamed("/signUp");
-                                            }
-                                          : null,
-                                      child: Text(
-                                        capitalize(AppTexts.next),
-                                        style: const TextStyle(
-                                          color: Colors.white,
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                ),
                               ],
                             ),
                           ),

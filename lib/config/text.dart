@@ -28,10 +28,16 @@ class AppTexts {
   static String forgot = "forgot?";
   static String resetPassword = "reset $password";
   static String yourEmail = "your $email";
+   static String siret = "N° de carte professionnelle";
   static String forgotPasswordDesccription =
       "DON'T WORRY, WE CAN HELP YOU TO RESET YOUR PASSWORD";
   static String emailSentText =
       "We have sent you an email to verify your account. Please check your inbox and click the link to verify it";
+   static const String coachVerif = 
+    "🚀 Félicitations ! Votre compte est presque prêt à être utilisé. 🎉\n\n"
+    "Nous sommes en train de vérifier les détails de votre compte et tout sera opérationnel sous peu. "
+    "Merci pour votre patience et soyez prêts pour une expérience géniale avec nous !\n\n"
+    "À très bientôt ! 👋";
   static String done = "done";
   static String reSendEmailVerification = "re-send email verification";
   static String signUpDescription =
@@ -43,7 +49,7 @@ class AppTexts {
   static String filterBy = "Filter by :";
   static String cancel = "Cancel";
   static String apply = "Apply";
-  static String configureSettings = "configure profile";
+  static String configureSettings = "settings";
 
   static String hours = "hours";
   static String moves = "moves";
@@ -55,7 +61,8 @@ class AppTexts {
   static String seeAll = 'see all';
   static String somethingWrong = "something wrong";
   static String hey = "Hey,";
-
+  static String subscribe = "s'abonner";
+  static String addToCard = "participer";
   static String profile = "profile";
   static String logOut = "log out";
   static String workoutOfDay = "Workout of the day";

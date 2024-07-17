@@ -135,6 +135,7 @@ class _HomePageState extends State<HomePage> {
                         ),
                         child: TabBar(
                           labelColor: Colors.white,
+                           unselectedLabelColor: Theme.of(context).primaryColor, // Couleur des onglets non sélectionnés
                           isScrollable: true,
                           indicator: BoxDecoration(
                             borderRadius: BorderRadius.circular(20),
@@ -143,6 +144,7 @@ class _HomePageState extends State<HomePage> {
                               width: 2,
                             ),
                           ),
+                            labelPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 8), // Ajustez les valeurs selon vos besoins
                           controller: _tabx.workOutTabController,
                           tabs: _tabx.workOutTabs,
                         ),
@@ -157,7 +159,7 @@ class _HomePageState extends State<HomePage> {
                             Center(
                               child: TabBarViewSection(
                                 title: capitalize(
-                                  'All workouts',
+                                  'Full body',
                                 ),
                                 dataList: WorkoutsList.allWorkoutsList,
                               ),
@@ -165,7 +167,7 @@ class _HomePageState extends State<HomePage> {
                             Center(
                               child: TabBarViewSection(
                                 title: capitalize(
-                                  'Popular',
+                                  'Legs',
                                 ),
                                 dataList: WorkoutsList.popularWorkoutsList,
                               ),
@@ -173,14 +175,14 @@ class _HomePageState extends State<HomePage> {
                             Center(
                               child: TabBarViewSection(
                                   title: capitalize(
-                                    'hard',
+                                    'Hard workout',
                                   ),
                                   dataList: WorkoutsList.hardWorkoutsList),
                             ),
                             Center(
                               child: TabBarViewSection(
                                   title: capitalize(
-                                    'Full body',
+                                    'Cardio',
                                   ),
                                   dataList: WorkoutsList.fullBodyWorkoutsList),
                             ),

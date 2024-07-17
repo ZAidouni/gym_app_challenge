@@ -7,26 +7,37 @@ import '../../functionsController/dialogsAndLoadingController.dart';
 
 class SignUpController extends GetxController {
   final DialogsAndLoadingController dialogsAndLoadingController = Get.find();
-  // Get moment time (in this case, get more info about user)
   FieldValue thisMomentTime = FieldValue.serverTimestamp();
 
-
-
-
   // Input controllers
-  late TextEditingController signUpUserController,
-      signUpEmailController,
-      signUpPasswordController;
+  late TextEditingController signUpUserController;
+  late TextEditingController signUpEmailController;
+  late TextEditingController signUpSiretController;
+  late TextEditingController signUpPasswordController;
 
   @override
   void onInit() {
-    initializeTextEditingControllers();
     super.onInit();
+    initializeTextEditingControllers();
   }
 
   @override
   void onClose() {
     disposeTextEditingControllers();
     super.onClose();
+  }
+
+  void initializeTextEditingControllers() {
+    signUpUserController = TextEditingController();
+    signUpEmailController = TextEditingController();
+    signUpSiretController = TextEditingController();
+    signUpPasswordController = TextEditingController();
+  }
+
+  void disposeTextEditingControllers() {
+    signUpUserController.dispose();
+    signUpEmailController.dispose();
+    signUpSiretController.dispose();
+    signUpPasswordController.dispose();
   }
 }

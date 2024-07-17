@@ -8,11 +8,11 @@ class CustomTabBarController extends GetxController
 
   // Tabs to show
   final List<Tab> workOutTabs = <Tab>[
-    const Tab(text: "All"),
-    const Tab(text: "Popular"),
-    const Tab(text: 'Hard workout'),
-    const Tab(text: 'Full body'),
-    const Tab(text: 'Crossfit'),
+  const Tab(text: 'Full body'),
+  const Tab(text: 'Legs'),
+  const Tab(text: 'Hard workout'),
+  const Tab(text: 'Cardio'),
+  const Tab(text: 'Crossfit'),
   ];
 
   @override

@@ -14,8 +14,8 @@ import '../../widgets/general_widgets/screen_background_image.dart';
 import '../../widgets/general_widgets/text field.dart';
 import '../../widgets/general_widgets/titleWithDescription.dart';
 
-class SignUpPage extends GetView<SignUpController> with DelayHelperMixin {
-  SignUpPage({super.key});
+class SignUpCoach extends GetView<SignUpController> with DelayHelperMixin {
+  SignUpCoach({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -87,6 +87,17 @@ class SignUpPage extends GetView<SignUpController> with DelayHelperMixin {
                           label: capitalize(AppTexts.email),
                         ),
                       ),
+                       const SizedBox(
+                        height: 30,
+                      ),
+                      DelayedDisplay(
+                        delay: getDelayDuration(),
+                        child: CustomTextField(
+                          keyboardType: TextInputType.text,
+                          controller: controller.signUpSiretController,
+                          label: capitalize(AppTexts.siret),
+                        ),
+                      ),
                       const SizedBox(
                         height: 30,
                       ),
@@ -109,7 +120,8 @@ class SignUpPage extends GetView<SignUpController> with DelayHelperMixin {
                                 controller.createNewAccount(
                                   email: controller.signUpEmailController.text
                                       .trim(),
-                                      siret: '',
+                                       siret: controller.signUpSiretController.text
+                                      .trim(),
                                   password: controller
                                       .signUpPasswordController.text
                                       .trim(),
