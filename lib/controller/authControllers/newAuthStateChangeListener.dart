@@ -19,27 +19,28 @@ class NewAuthStateChangeListener extends GetxController {
 
   // Auth state handler
   handleTheUserState(User? user) async {
-      DocumentReference userDocRef = FirebaseFirestore.instance.collection("aboutUsers").doc(user?.uid);
+    DocumentReference userDocRef = FirebaseFirestore.instance.collection("aboutUsers").doc(user?.uid);
 
-      // Obtenez le document utilisateur
-       DocumentSnapshot userDoc = await userDocRef.get();
-
-         print(user);
-      
+    // Obtenez le document utilisateur
+    DocumentSnapshot userDoc = await userDocRef.get();
     if (user == null) {
       // print("no user / user is signed out");
-      Get.offAll(WelcomePage());
+      Get.offAll(() => WelcomePage());
     } else {
       if (!user.emailVerified && userDoc.get("siret") == "" ) {
-        Get.offAll(EmailVerificatioPage());
+        Get.offAll(() => EmailVerificatioPage());
+
       } if(!userDoc.get("verified") && userDoc.get("siret") != "" ) {
-        Get.offAll(EmailCoachPage());
+        Get.offAll(() => EmailCoachPage());
+
       }
-       if(user.emailVerified && userDoc.get("siret") == "" ) {
-        Get.offAll(HomePage());
-      } 
-       if(userDoc.get("verified") && userDoc.get("siret") != "" ) {
-        Get.offAll(HomePageCoach());
+      if(user.emailVerified && userDoc.get("siret") == "" ) {
+        Get.offAll(() => HomePage());
+
+      }
+      if(userDoc.get("verified") && userDoc.get("siret") != "" ) {
+        Get.offAll(() => HomePageCoach());
+
       }
     }
   }
