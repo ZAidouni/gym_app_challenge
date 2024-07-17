@@ -14,7 +14,7 @@ import '../../widgets/general_widgets/mainScreenTitle.dart';
 import '../../widgets/general_widgets/screen_background_image.dart';
 
 class WelcomePage extends GetView<FunctionsController> with DelayHelperMixin {
-  WelcomePage({super.key});
+  WelcomePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
