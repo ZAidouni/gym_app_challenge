@@ -5,27 +5,27 @@ class UserProfileStats {
     {
       "title": "Full body",
       "value": "25",
-      "img": "imgs/welcomePageOverlay.png",
+      "img": "assets/img/welcomePageOverlay.png",
     },
     {
       "title": "Legs",
       "value": "0",
-      "img": "imgs/loginOverlayImg.png",
+      "img": "assets/img/loginOverlayImg.png",
     },
     {
       "title": "Hard workout",
       "value": "5",
-      "img": "imgs/welcomeOverlayImg.png",
+      "img": "assets/img/welcomeOverlayImg.png",
     },
     {
       "title": "Cardio",
       "value": "0",
-      "img": "imgs/loginOverlayImg.png",
+      "img": "assets/img//loginOverlayImg.png",
     },
      {
       "title": "Crossfit",
       "value": "0",
-      "img": "imgs/welcomeOverlayImg.png",
+      "img": "assets/img/welcomeOverlayImg.png",
     },
   ];
 }

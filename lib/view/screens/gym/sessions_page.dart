@@ -5,15 +5,15 @@ class SessionsPage extends StatelessWidget {
   final List<Map<String, String>> sessions = [
     {
       "title": "Séance de Cardio",
-      "image": "imgs/welcomeOverlayImg.png",
+      "image": "assets/img/welcomeOverlayImg.png",
     },
     {
       "title": "Séance de Musculation",
-      "image": "imgs/welcomeOverlayImg.png",
+      "image": "assets/img/welcomeOverlayImg.png",
     },
     {
       "title": "Séance de Yoga",
-      "image": "imgs/welcomeOverlayImg.png",
+      "image": "assets/img/img/welcomeOverlayImg.png",
     },
   ];
 
