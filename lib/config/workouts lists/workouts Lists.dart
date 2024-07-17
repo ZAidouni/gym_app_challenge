@@ -4,7 +4,7 @@ class WorkoutsList {
   static List allWorkoutsList = [
     {
       "workOutTitle": "Yoga exercises",
-      "imagePath": "imgs/GetStartedOverlay.png",
+      "imagePath": "assets/img/GetStartedOverlay.png",
       "timeLeftInHour": "12",
       "movesNumber": "25",
       "setsNumber": "10",
@@ -19,7 +19,7 @@ class WorkoutsList {
     },
     {
       "workOutTitle": "Example exercises",
-      "imagePath": "imgs/jiabcyzut.png",
+      "imagePath": "assets/img/jiabcyzut.png",
       "timeLeftInHour": "1",
       "movesNumber": "08",
       "setsNumber": "22",
@@ -34,7 +34,7 @@ class WorkoutsList {
     },
     {
       "workOutTitle": "Example exercises",
-      "imagePath": "imgs/welcomeOverlayImg.png",
+      "imagePath": "assets/img/welcomeOverlayImg.png",
       "timeLeftInHour": "40",
       "movesNumber": "10",
       "setsNumber": "10",
@@ -50,7 +50,7 @@ class WorkoutsList {
     },
     {
       "workOutTitle": "Yoga exerciiiiiiiiiiiises",
-      "imagePath": "imgs/GetStartedOverlay.png",
+      "imagePath": "assets/img/GetStartedOverlay.png",
       "timeLeftInHour": "12",
       "movesNumber": "25",
       "setsNumber": "10",
@@ -64,7 +64,7 @@ class WorkoutsList {
     },
     {
       "workOutTitle": "Yoga exercises",
-      "imagePath": "imgs/GetStartedOverlay.png",
+      "imagePath": "assets/img/GetStartedOverlay.png",
       "timeLeftInHour": "12",
       "movesNumber": "25",
       "setsNumber": "10",
@@ -78,7 +78,7 @@ class WorkoutsList {
     },
     {
       "workOutTitle": "Example exercises",
-      "imagePath": "imgs/jiabcyzut.png",
+      "imagePath": "assets/img/jiabcyzut.png",
       "timeLeftInHour": "1",
       "movesNumber": "08",
       "setsNumber": "22",
@@ -92,7 +92,7 @@ class WorkoutsList {
     },
     {
       "workOutTitle": "Example exercises",
-      "imagePath": "imgs/welcomeOverlayImg.png",
+      "imagePath": "assets/img/welcomeOverlayImg.png",
       "timeLeftInHour": "40",
       "movesNumber": "10",
       "setsNumber": "10",
@@ -107,7 +107,7 @@ class WorkoutsList {
     },
     {
       "workOutTitle": "Yoga exerciiiiiiiiiiiises",
-      "imagePath": "imgs/GetStartedOverlay.png",
+      "imagePath": "assets/img/GetStartedOverlay.png",
       "timeLeftInHour": "12",
       "movesNumber": "25",
       "setsNumber": "10",
@@ -125,7 +125,7 @@ class WorkoutsList {
   static List hardWorkoutsList = [
     {
       "workOutTitle": "Hard exercises",
-      "imagePath": "imgs/loginOverlayImg.png",
+      "imagePath": "assets/img/loginOverlayImg.png",
       "timeLeftInHour": "11",
       "movesNumber": "25",
       "setsNumber": "3",
@@ -141,7 +141,7 @@ class WorkoutsList {
     },
     {
       "workOutTitle": "hard muscular exercises",
-      "imagePath": "imgs/GetStartedOverlay.png",
+      "imagePath": "assets/img/GetStartedOverlay.png",
       "timeLeftInHour": "9",
       "movesNumber": "16",
       "setsNumber": "12",
@@ -155,7 +155,7 @@ class WorkoutsList {
     },
     {
       "workOutTitle": "random hard exercises",
-      "imagePath": "imgs/welcomePageOverlay.png",
+      "imagePath": "assets/img/welcomePageOverlay.png",
       "timeLeftInHour": "11",
       "movesNumber": "16",
       "setsNumber": "12",
@@ -169,7 +169,7 @@ class WorkoutsList {
     },
     {
       "workOutTitle": "Hard exercises",
-      "imagePath": "imgs/loginOverlayImg.png",
+      "imagePath": "assets/img/loginOverlayImg.png",
       "timeLeftInHour": "11",
       "movesNumber": "25",
       "setsNumber": "3",
@@ -185,7 +185,7 @@ class WorkoutsList {
     },
     {
       "workOutTitle": "hard muscular exercises",
-      "imagePath": "imgs/GetStartedOverlay.png",
+      "imagePath": "assets/img/GetStartedOverlay.png",
       "timeLeftInHour": "9",
       "movesNumber": "16",
       "setsNumber": "12",
@@ -199,7 +199,7 @@ class WorkoutsList {
     },
     {
       "workOutTitle": "random hard exercises",
-      "imagePath": "imgs/welcomePageOverlay.png",
+      "imagePath": "assets/img/welcomePageOverlay.png",
       "timeLeftInHour": "11",
       "movesNumber": "16",
       "setsNumber": "12",
@@ -217,7 +217,7 @@ class WorkoutsList {
   static List popularWorkoutsList = [
     {
       "workOutTitle": "Hard exercises",
-      "imagePath": "imgs/loginOverlayImg.png",
+      "imagePath": "assets/img/loginOverlayImg.png",
       "timeLeftInHour": "10",
       "movesNumber": "40",
       "setsNumber": "3",
@@ -232,7 +232,7 @@ class WorkoutsList {
     },
     {
       "workOutTitle": "hard muscular exercises",
-      "imagePath": "imgs/GetStartedOverlay.png",
+      "imagePath": "assets/img/GetStartedOverlay.png",
       "timeLeftInHour": "22",
       "movesNumber": "40",
       "setsNumber": "20",
@@ -248,7 +248,7 @@ class WorkoutsList {
     },
     {
       "workOutTitle": "random hard exercises",
-      "imagePath": "imgs/welcomePageOverlay.png",
+      "imagePath": "assets/img/welcomePageOverlay.png",
       "timeLeftInHour": "23",
       "movesNumber": "16",
       "setsNumber": "12",
@@ -263,7 +263,7 @@ class WorkoutsList {
     },
     {
       "workOutTitle": "Hard exercises",
-      "imagePath": "imgs/loginOverlayImg.png",
+      "imagePath": "assets/img/loginOverlayImg.png",
       "timeLeftInHour": "10",
       "movesNumber": "40",
       "setsNumber": "3",
@@ -278,7 +278,7 @@ class WorkoutsList {
     },
     {
       "workOutTitle": "hard muscular exercises",
-      "imagePath": "imgs/GetStartedOverlay.png",
+      "imagePath": "assets/img/GetStartedOverlay.png",
       "timeLeftInHour": "22",
       "movesNumber": "40",
       "setsNumber": "20",
@@ -293,7 +293,7 @@ class WorkoutsList {
     },
     {
       "workOutTitle": "random hard exercises",
-      "imagePath": "imgs/welcomePageOverlay.png",
+      "imagePath": "assets/img/welcomePageOverlay.png",
       "timeLeftInHour": "23",
       "movesNumber": "16",
       "setsNumber": "12",
@@ -311,7 +311,7 @@ class WorkoutsList {
   static List fullBodyWorkoutsList = [
     {
       "workOutTitle": "Hard exercises",
-      "imagePath": "imgs/loginOverlayImg.png",
+      "imagePath": "assets/img/loginOverlayImg.png",
       "timeLeftInHour": "19",
       "movesNumber": "25",
       "setsNumber": "3",
@@ -326,7 +326,7 @@ class WorkoutsList {
     },
     {
       "workOutTitle": "hard muscular exercises",
-      "imagePath": "imgs/GetStartedOverlay.png",
+      "imagePath": "assets/img/GetStartedOverlay.png",
       "timeLeftInHour": "18",
       "movesNumber": "24",
       "setsNumber": "12",
@@ -340,7 +340,7 @@ class WorkoutsList {
     },
     {
       "workOutTitle": "random hard exercises",
-      "imagePath": "imgs/welcomePageOverlay.png",
+      "imagePath": "assets/img/welcomePageOverlay.png",
       "timeLeftInHour": "23",
       "movesNumber": "16",
       "setsNumber": "12",
@@ -355,7 +355,7 @@ class WorkoutsList {
     },
     {
       "workOutTitle": "Hard exercises",
-      "imagePath": "imgs/loginOverlayImg.png",
+      "imagePath": "assets/img/loginOverlayImg.png",
       "timeLeftInHour": "19",
       "movesNumber": "25",
       "setsNumber": "3",
@@ -371,7 +371,7 @@ class WorkoutsList {
     },
     {
       "workOutTitle": "hard muscular exercises",
-      "imagePath": "imgs/GetStartedOverlay.png",
+      "imagePath": "assets/img/GetStartedOverlay.png",
       "timeLeftInHour": "18",
       "movesNumber": "24",
       "setsNumber": "12",
@@ -386,7 +386,7 @@ class WorkoutsList {
     },
     {
       "workOutTitle": "random hard exercises",
-      "imagePath": "imgs/welcomePageOverlay.png",
+      "imagePath": "assets/img/welcomePageOverlay.png",
       "timeLeftInHour": "23",
       "movesNumber": "16",
       "setsNumber": "12",
@@ -403,7 +403,7 @@ class WorkoutsList {
   static List crossFit = [
     {
       "workOutTitle": "Hard exercises",
-      "imagePath": "imgs/loginOverlayImg.png",
+      "imagePath": "assets/img/loginOverlayImg.png",
       "timeLeftInHour": "18",
       "movesNumber": "25",
       "setsNumber": "3",
@@ -418,7 +418,7 @@ class WorkoutsList {
     },
     {
       "workOutTitle": "hard muscular exercises",
-      "imagePath": "imgs/GetStartedOverlay.png",
+      "imagePath": "assets/img/GetStartedOverlay.png",
       "timeLeftInHour": "16",
       "movesNumber": "100",
       "setsNumber": "30",
@@ -433,7 +433,7 @@ class WorkoutsList {
     },
     {
       "workOutTitle": "random hard exercises",
-      "imagePath": "imgs/welcomePageOverlay.png",
+      "imagePath": "assets/img/welcomePageOverlay.png",
       "timeLeftInHour": "7",
       "movesNumber": "50",
       "setsNumber": "0",
@@ -447,7 +447,7 @@ class WorkoutsList {
     },
     {
       "workOutTitle": "Hard exercises",
-      "imagePath": "imgs/loginOverlayImg.png",
+      "imagePath": "assets/img/loginOverlayImg.png",
       "timeLeftInHour": "18",
       "movesNumber": "25",
       "setsNumber": "3",
@@ -462,7 +462,7 @@ class WorkoutsList {
     },
     {
       "workOutTitle": "hard muscular exercises",
-      "imagePath": "imgs/GetStartedOverlay.png",
+      "imagePath": "assets/img/GetStartedOverlay.png",
       "timeLeftInHour": "16",
       "movesNumber": "100",
       "setsNumber": "30",
@@ -477,7 +477,7 @@ class WorkoutsList {
     },
     {
       "workOutTitle": "random hard exercises",
-      "imagePath": "imgs/welcomePageOverlay.png",
+      "imagePath": "assets/img/welcomePageOverlay.png",
       "timeLeftInHour": "7",
       "movesNumber": "50",
       "setsNumber": "0",

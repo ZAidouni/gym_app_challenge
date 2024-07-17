@@ -11,15 +11,15 @@ class ImgSrc {
     ImgSrc.homepageOverlay,
   ];
 
-  static String welcome = 'imgs/welcomeOverlayImg.png';
-  static String getStarted = 'imgs/GetStartedOverlay.png';
-  static String login = 'imgs/loginOverlayImg.png';
-  static String primaryLaungage = "imgs/en.png";
-  static String secondaryLaungage = "imgs/fr.png";
-  static String imgVerification = "imgs/email_verif.png";
-  static String homepageOverlay = 'imgs/welcomePageOverlay.png';
+  static String welcome = 'assets/img/welcomeOverlayImg.png';
+  static String getStarted = 'assets/img/GetStartedOverlay.png';
+  static String login = 'assets/img/loginOverlayImg.png';
+  static String primaryLaungage = "assets/img/en.png";
+  static String secondaryLaungage = "assets/img/fr.png";
+  static String imgVerification = "assets/img/email_verif.png";
+  static String homepageOverlay = 'assets/img/welcomePageOverlay.png';
 
-  static String noImgAvailable = "imgs/No_image_available.png";
+  static String noImgAvailable = "assets/img/No_image_available.png";
 
   String randomFromAssetsList() {
     return imgList[Random().nextInt(imgList.length)];
