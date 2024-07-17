@@ -101,16 +101,7 @@ class _HomePageState extends State<HomePage> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           const FindYourWorkout(),
-                          GestureDetector(
-                            onTap: (() {
-                              controller.showFilterDialog(context);
-                            }),
-                            child: const Icon(
-                              Icons.filter_alt_outlined,
-                              color: Colors.white,
-                              size: 26,
-                            ),
-                          )
+                        
                         ],
                       ),
                     ),

@@ -38,6 +38,29 @@ class UserInformationController extends GetxController {
 
   // ImgPicker instance
   ImagePicker picker = ImagePicker();
+  // Variable pour stocker l'état "coach"
+  RxBool iscoach = false.obs;
+
+     
+
+  // Fonction pour vérifier si l'utilisateur est un coach
+Future<bool> IsCoach() async {
+  try {
+    // Récupérer le document de l'utilisateur depuis Firestore
+    DocumentSnapshot userDoc = await _firestore
+        .collection("aboutUsers")
+        .doc(_auth.currentUser!.uid)
+        .get();
+    
+    // Vérifier si le champ "siret" existe et n'est pas vide
+    String? siret = userDoc.get("siret");
+    return siret != null && siret.isNotEmpty;
+  } catch (e) {
+    // En cas d'erreur, afficher le message d'erreur et retourner false
+    print("Error checking coach status: $e");
+    return false;
+  }
+}
 
   // Set username from firestore ( accept string )
   setUsername() async {
