@@ -20,6 +20,7 @@ class AppTexts {
   static String next = "Next";
   static String signIn = "sign in";
   static String signUp = "sign up";
+    static String publier = "publier";
   static String loginDescription =
       "Train and live the new experience of exercising at home";
   static String email = "email";

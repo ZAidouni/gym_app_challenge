@@ -16,12 +16,12 @@ extension CreateNewAccExtension on SignUpController {
   Future<void> createNewAccount({
     required String email,
     required String password,
-    required String siret,
+    String? siret,
     required String username,
   }) async {
     if (email.isValidEmail &&
         password.isValidPassword &&
-        username.isAcceptedUsername) {
+        username.isAcceptedUsername ) {
       try {
         dialogsAndLoadingController.showLoading();
 

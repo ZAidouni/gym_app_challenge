@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:work_out/view/screens/auth/sign_up_coach.dart';
 import 'package:work_out/view/screens/auth/sign_up_page.dart';
+import 'package:work_out/view/screens/homepage/homepagecoach.dart';
 import 'package:work_out/view/screens/welcome/welcome_page.dart';
 
 import '../bindings/forgot_password_binding.dart';
@@ -12,6 +13,7 @@ import '../view/screens/Get started/get_started_page.dart';
 import '../view/screens/auth/forgotPassword.dart';
 import '../view/screens/auth/login_page.dart';
 import '../view/screens/homepage/homePage.dart';  
+
 // To-do: add routes to all screens, ad make the change over the screens
 class Routes {
   static final List<GetPage> pages = [
@@ -47,7 +49,11 @@ class Routes {
     ),
     GetPage(
       name: "/home",
-      page: () => HomePage(), // Ajoutez cette ligne
+      page: () => HomePage(), 
+    ),
+    GetPage(
+      name: "/homeCoach",
+      page: () => HomePageCoach(), 
     ),
   ];
 }

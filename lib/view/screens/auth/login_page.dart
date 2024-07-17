@@ -21,6 +21,7 @@ class LoginPage extends GetView<LoginController> with DelayHelperMixin {
   LoginPage({super.key});
   @override
   Widget build(BuildContext context) {
+        final LoginController controller = Get.put(LoginController());
     return Scaffold(
       body: Stack(
         children: <Widget>[
