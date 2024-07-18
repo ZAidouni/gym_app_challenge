@@ -16,7 +16,7 @@ import 'componenets/HomePageSearchBar.dart';
 import 'componenets/ItemsSwitchTiles.dart';
 import 'componenets/find_your_workout.dart';
 import 'componenets/playButton.dart';
-import 'componenets/tabBarViewSections.dart';
+import 'componenets/tabBarViewSectionsHome.dart';
 import 'componenets/usernameAndProfile.dart';
 
 class HomePage extends StatefulWidget {
@@ -125,17 +125,18 @@ class _HomePageState extends State<HomePage> {
                           milliseconds: delay + 400,
                         ),
                         child: TabBar(
+                          padding: EdgeInsets.all(0.9),
                           labelColor: Colors.white,
                            unselectedLabelColor: Theme.of(context).primaryColor, // Couleur des onglets non sélectionnés
                           isScrollable: true,
                           indicator: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
+                            borderRadius: BorderRadius.circular(50),
                             border: Border.all(
                               color: Theme.of(context).primaryColor,
                               width: 2,
                             ),
                           ),
-                            labelPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 8), // Ajustez les valeurs selon vos besoins
+                            labelPadding: EdgeInsets.symmetric(horizontal:20, vertical: 8), // Ajustez les valeurs selon vos besoins
                           controller: _tabx.workOutTabController,
                           tabs: _tabx.workOutTabs,
                         ),
@@ -148,7 +149,7 @@ class _HomePageState extends State<HomePage> {
                           controller: _tabx.workOutTabController,
                           children: [
                             Center(
-                              child: TabBarViewSection(
+                              child: TabBarViewSectionHome(
                                 title: capitalize(
                                   'Full body',
                                 ),
@@ -156,7 +157,7 @@ class _HomePageState extends State<HomePage> {
                               ),
                             ),
                             Center(
-                              child: TabBarViewSection(
+                              child: TabBarViewSectionHome(
                                 title: capitalize(
                                   'Legs',
                                 ),
@@ -164,21 +165,21 @@ class _HomePageState extends State<HomePage> {
                               ),
                             ),
                             Center(
-                              child: TabBarViewSection(
+                              child: TabBarViewSectionHome(
                                   title: capitalize(
                                     'Hard workout',
                                   ),
                                   dataList: WorkoutsList.hardWorkoutsList),
                             ),
                             Center(
-                              child: TabBarViewSection(
+                              child: TabBarViewSectionHome(
                                   title: capitalize(
                                     'Cardio',
                                   ),
                                   dataList: WorkoutsList.fullBodyWorkoutsList),
                             ),
                             Center(
-                              child: TabBarViewSection(
+                              child: TabBarViewSectionHome(
                                   title: capitalize(
                                     'Crossfit',
                                   ),

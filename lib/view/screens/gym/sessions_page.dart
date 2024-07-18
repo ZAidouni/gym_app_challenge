@@ -1,23 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 
 import '../chat/chat_screen.dart';
 
 class SessionsPage extends StatelessWidget {
-  // Liste simulée des séances avec des titres et des images
-  final List<Map<String, String>> sessions = [
+  // Simulated list of sessions with titles and images
+  final List<Map<String, dynamic>> sessions = [
     {
       "title": "Séance de Cardio",
       "image": "assets/img/welcomeOverlayImg.png",
+      "participants": 10, // Example participant count
     },
     {
       "title": "Séance de Musculation",
       "image": "assets/img/welcomeOverlayImg.png",
+      "participants": 5, // Example participant count
     },
     {
       "title": "Séance de Yoga",
       "image": "assets/img/welcomeOverlayImg.png",
+      "participants": 20, // Example participant count
     },
   ];
 
@@ -30,23 +32,23 @@ class SessionsPage extends StatelessWidget {
         title: Text(
           'Mes Séances',
           style: TextStyle(
-            color: Colors.white, // Changez cette couleur selon vos besoins
+            color: Colors.white,
           ),
         ),
       ),
       body: GridView.builder(
         padding: EdgeInsets.all(10),
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2, // Nombre de colonnes
+          crossAxisCount: 2,
           crossAxisSpacing: 10,
           mainAxisSpacing: 10,
-          childAspectRatio: 0.75, // Proportion des éléments
+          childAspectRatio: 0.75,
         ),
         itemCount: sessions.length,
         itemBuilder: (context, index) {
           final session = sessions[index];
           return Card(
-            color: const Color(0xff1C1F2E), // Couleur de fond de la carte
+            color: const Color(0xff1C1F2E),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -55,13 +57,13 @@ class SessionsPage extends StatelessWidget {
                   fit: BoxFit.cover,
                   height: 120,
                   width: double.infinity,
-                ), // Affiche l'image
+                ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
                     session["title"]!,
                     style: TextStyle(
-                      color: Colors.white, // Couleur du texte
+                      color: Colors.white,
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
                     ),
@@ -75,13 +77,13 @@ class SessionsPage extends StatelessWidget {
                       Expanded(
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.blue, // Couleur du bouton "Détails"
-                            padding: EdgeInsets.symmetric(vertical: 12), // Ajustez le padding si nécessaire
+                            backgroundColor: Colors.blue,
+                            padding: EdgeInsets.symmetric(vertical: 12),
                           ),
                           onPressed: () {
                             Get.to(() => const ChatScreen());
                           },
-                          child: const Row(
+                          child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Icon(Icons.message, color: Colors.white),
@@ -90,15 +92,15 @@ class SessionsPage extends StatelessWidget {
                           ),
                         ),
                       ),
-                      SizedBox(width: 10), // Espace entre les boutons
+                      SizedBox(width: 10),
                       Expanded(
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.red, // Couleur du bouton "Supprimer"
-                            padding: EdgeInsets.symmetric(vertical: 12), // Ajustez le padding si nécessaire
+                            backgroundColor: Colors.red,
+                            padding: EdgeInsets.symmetric(vertical: 12),
                           ),
                           onPressed: () {
-                            // Action pour le deuxième bouton
+                            // Action for the delete button
                           },
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -107,6 +109,22 @@ class SessionsPage extends StatelessWidget {
                               SizedBox(width: 5),
                             ],
                           ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Icon(Icons.people, color: Colors.white, size: 18),
+                      Text(
+                        '${session["participants"]} participants',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 12,
                         ),
                       ),
                     ],
