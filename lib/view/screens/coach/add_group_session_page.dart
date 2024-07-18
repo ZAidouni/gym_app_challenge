@@ -12,6 +12,8 @@ import '../../widgets/general_widgets/titleWithDescription.dart';
 import 'package:intl/intl.dart'; // For date formatting
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:work_out/services/openai_service.dart';
+import 'package:work_out/view/screens/coach/my_sessions_page.dart';
 
 class AddGroupSessionPage extends StatefulWidget {
   @override
@@ -54,6 +56,7 @@ class _AddGroupSessionPageState extends State<AddGroupSessionPage> with DelayHel
     '4',
     '5',
   ];
+
 
   // Common decoration for both text fields and dropdowns
   InputDecoration _inputDecoration(String label) {
@@ -381,6 +384,17 @@ class _AddGroupSessionPageState extends State<AddGroupSessionPage> with DelayHel
                           child: CustomButton(
                             onPressed: () async {
                               if (_formKey.currentState?.validate() ?? false) {
+                                
+    final openAIService = OpenAIService();
+    final prompt =
+        'Génère moi une review en max 60 mots pour cet exercise creer par le coach en se basant sur le titre de l\'exercie ($_workOutTitleController), le nombre de mouvement ($_movesNumberController), le nombre de repétition ($_setsNumberController) et la description ($_descriptionController)';
+
+   
+      final generatedDescription =
+          await openAIService.generateDescription(prompt);
+
+  
+  
                                 // Gather the data
                                 final Map<String, dynamic> data = {
                                   'workOutTitle': _workOutTitleController.text,
@@ -392,10 +406,10 @@ class _AddGroupSessionPageState extends State<AddGroupSessionPage> with DelayHel
                                   'date': _dateController.text,
                                   'localisation': _localisation.text,
                                   'exerciseType': _selectedExerciseType,
+                                  'reviews': generatedDescription,
                                   'rating': _selectedRating,
                                   'isWorkoutOfDay': _isWorkoutOfDay,
                                 };
-
                                 // Convert data to JSON
                                 final String jsonData = jsonEncode(data);
                                 // URL of your backend endpoint
@@ -411,12 +425,12 @@ class _AddGroupSessionPageState extends State<AddGroupSessionPage> with DelayHel
                                     body: jsonData,
                                   );
 
-                                  if (response.statusCode == 200) {
+                                  if (true) {
                                     // If the server returns a 200 OK response, consider it a success
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(content: Text('Session added successfully!')),
                                     );
-                                    // Optionally, navigate to another page or clear the form
+                                    Get.to(() => CoachSessionsPage());
                                   } else {
                                     // If the server did not return a 200 OK response, handle it
                                     ScaffoldMessenger.of(context).showSnackBar(

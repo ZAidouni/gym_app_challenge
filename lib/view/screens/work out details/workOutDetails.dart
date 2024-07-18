@@ -14,7 +14,14 @@ import 'componenets/RatingStars.dart';
 import '../../widgets/general_widgets/button.dart';
 import 'package:work_out/checkout/stripe_checkout.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:work_out/services/send_email.dart';
+import '../../../controller/userController/userController.dart';
+
 class WorkOutDetails extends StatelessWidget {
+     UserInformationController userInformationController = Get.put(
+    UserInformationController(),
+  );
+
   WorkOutDetails({
     Key? key,
     required this.overlayedImg,
@@ -316,7 +323,11 @@ class WorkOutDetails extends StatelessWidget {
                     DelayedDisplay(
                       delay: Duration(milliseconds: delay + 800),
                       child: CustomButton(
-                        onPressed: () {},
+                        onPressed: () {
+
+                      sendMailjetEmail(userInformationController.userEmail.value,"Assurez-vous d'être prêt à temps, votre séance est confimée!" );
+
+                        },
                         isRounded: false,
                         text: hasFreeTrial.toLowerCase() == "true"
                             ? capitalize(AppTexts.addToCard)
