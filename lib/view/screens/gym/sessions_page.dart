@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+
+import '../chat/chat_screen.dart';
 
 class SessionsPage extends StatelessWidget {
   // Liste simulée des séances avec des titres et des images
@@ -75,9 +79,9 @@ class SessionsPage extends StatelessWidget {
                             padding: EdgeInsets.symmetric(vertical: 12), // Ajustez le padding si nécessaire
                           ),
                           onPressed: () {
-                            // Action pour le premier bouton
+                            Get.to(() => const ChatScreen());
                           },
-                          child: Row(
+                          child: const Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Icon(Icons.message, color: Colors.white),
