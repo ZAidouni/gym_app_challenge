@@ -1,21 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 import '../chat/chat_screen.dart';
 
 class CoachSessionsPage extends StatelessWidget {
-  // List of sessions with titles and images
-  final List<Map<String, String>> sessions = [
+  // Simulated list of sessions with titles and images
+  final List<Map<String, dynamic>> sessions = [
     {
+      "id": "session1",
       "title": "Séance de Cardio",
       "image": "assets/img/welcomeOverlayImg.png",
+      "participants": 10, // Example participant count
     },
     {
+      "id": "session2",
       "title": "Séance de Musculation",
       "image": "assets/img/welcomeOverlayImg.png",
+      "participants": 5, // Example participant count
     },
     {
+      "id": "session3",
       "title": "Séance de Yoga",
       "image": "assets/img/welcomeOverlayImg.png",
+      "participants": 20, // Example participant count
     },
   ];
 
@@ -25,7 +32,7 @@ class CoachSessionsPage extends StatelessWidget {
       backgroundColor: const Color(0xff131429),
       appBar: AppBar(
         backgroundColor: const Color(0xff131429),
-        title: const Text(
+        title: Text(
           'Mes Séances',
           style: TextStyle(
             color: Colors.white,
@@ -33,8 +40,8 @@ class CoachSessionsPage extends StatelessWidget {
         ),
       ),
       body: GridView.builder(
-        padding: const EdgeInsets.all(10),
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        padding: EdgeInsets.all(10),
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
           crossAxisSpacing: 10,
           mainAxisSpacing: 10,
@@ -58,14 +65,14 @@ class CoachSessionsPage extends StatelessWidget {
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
                     session["title"]!,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: Colors.white,
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),
-                const Spacer(),
+                Spacer(),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Row(
@@ -74,12 +81,13 @@ class CoachSessionsPage extends StatelessWidget {
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.blue,
-                            padding: const EdgeInsets.symmetric(vertical: 12),
+                            padding: EdgeInsets.symmetric(vertical: 12),
                           ),
                           onPressed: () {
-                            Get.to(() => const ChatScreen());
+                            
+                            Get.to(() => ChatScreen(sessionId: session["id"]));
                           },
-                          child: const Row(
+                          child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Icon(Icons.message, color: Colors.white),
@@ -88,23 +96,39 @@ class CoachSessionsPage extends StatelessWidget {
                           ),
                         ),
                       ),
-                      const SizedBox(width: 10),
+                      SizedBox(width: 10),
                       Expanded(
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.red,
-                            padding: const EdgeInsets.symmetric(vertical: 12),
+                            padding: EdgeInsets.symmetric(vertical: 12),
                           ),
                           onPressed: () {
                             // Action for the delete button
                           },
-                          child: const Row(
+                          child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Icon(Icons.delete, color: Colors.white),
                               SizedBox(width: 5),
                             ],
                           ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Icon(Icons.people, color: Colors.white, size: 18),
+                      Text(
+                        '${session["participants"]} participants',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 12,
                         ),
                       ),
                     ],

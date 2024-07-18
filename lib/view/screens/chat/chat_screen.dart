@@ -17,7 +17,9 @@ String randomString() {
 }
 
 class ChatScreen extends StatefulWidget {
-  const ChatScreen({super.key});
+  final String sessionId;
+
+  const ChatScreen({super.key, required this.sessionId});
 
   @override
   State<ChatScreen> createState() => _ChatScreenState();
@@ -34,7 +36,13 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   Future<void> _loadMessages() async {
-    FirebaseFirestore.instance.collection('messages').orderBy('createdAt').snapshots().listen((snapshot) {
+    FirebaseFirestore.instance
+        .collection('sessions')
+        .doc(widget.sessionId)
+        .collection('messages')
+        .orderBy('createdAt')
+        .snapshots()
+        .listen((snapshot) {
       final messages = snapshot.docs.map((doc) {
         final data = doc.data();
         final author = types.User(
@@ -53,7 +61,7 @@ class _ChatScreenState extends State<ChatScreen> {
       setState(() {
         _messages
           ..clear()
-          ..addAll(messages.reversed);  // Reverse the list to show the newest messages at the bottom
+          ..addAll(messages.reversed);  
       });
     });
   }
@@ -78,12 +86,47 @@ class _ChatScreenState extends State<ChatScreen> {
         imageUrl: _user!.photoURL ?? 'https://www.pngall.com/wp-content/uploads/12/Avatar-Profile.png',
       ),
       onAttachmentPressed: _handleImageSelection,
+      customMessageBuilder: _customMessageBuilder,
     ),
   );
 
+  Widget _customMessageBuilder(types.Message message, {required int messageWidth}) {
+    final textMessage = message as types.TextMessage;
+    return Column(
+      crossAxisAlignment: message.author.id == _user!.uid ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+      children: [
+        Text(
+          message.author.firstName ?? "Unknown",
+          style: TextStyle(
+            color: Colors.grey,
+            fontSize: 12,
+          ),
+        ),
+        Container(
+          padding: const EdgeInsets.all(8),
+          decoration: BoxDecoration(
+            color: message.author.id == _user!.uid ? Colors.blue : Colors.grey[200],
+            borderRadius: BorderRadius.circular(8),
+          ),
+          constraints: BoxConstraints(maxWidth: messageWidth.toDouble()),
+          child: Text(
+            textMessage.text,
+            style: TextStyle(
+              color: message.author.id == _user!.uid ? Colors.white : Colors.black,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
   void _addMessage(types.Message message) async {
     try {
-      await FirebaseFirestore.instance.collection('messages').add({
+      await FirebaseFirestore.instance
+          .collection('sessions')
+          .doc(widget.sessionId)
+          .collection('messages')
+          .add({
         'authorId': _user!.uid,
         'authorName': _user!.displayName,
         'authorImageUrl': _user!.photoURL,

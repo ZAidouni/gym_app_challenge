@@ -7,16 +7,19 @@ class SessionsPage extends StatelessWidget {
   // Simulated list of sessions with titles and images
   final List<Map<String, dynamic>> sessions = [
     {
+      "id": "session1",
       "title": "Séance de Cardio",
       "image": "assets/img/welcomeOverlayImg.png",
       "participants": 10, // Example participant count
     },
     {
+      "id": "session2",
       "title": "Séance de Musculation",
       "image": "assets/img/welcomeOverlayImg.png",
       "participants": 5, // Example participant count
     },
     {
+      "id": "session3",
       "title": "Séance de Yoga",
       "image": "assets/img/welcomeOverlayImg.png",
       "participants": 20, // Example participant count
@@ -81,7 +84,7 @@ class SessionsPage extends StatelessWidget {
                             padding: EdgeInsets.symmetric(vertical: 12),
                           ),
                           onPressed: () {
-                            Get.to(() => const ChatScreen());
+                            Get.to(() => ChatScreen(sessionId: session["id"]));
                           },
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
