@@ -5,11 +5,14 @@ import 'package:work_out/controller/functionsController.dart';
 import '../../../controller/userProfileOptions/userProfileOptionsController.dart';
 import '../../../controller/userController/userController.dart'; // Importer le contrôleur
 import '../../../helpers/string_methods.dart';
-import 'components/appBar.dart';
 import 'package:work_out/checkout/subscription_redirect_page.dart';
+import '../../../../controller/authControllers/signOutController.dart';
+import 'package:work_out/config/text.dart';
+import 'package:work_out/config/Colors.dart';
+import 'package:work_out/view/screens/homepage/homepagecoach.dart';
 
-class CustomProfileSettings extends StatelessWidget {
-  CustomProfileSettings({Key? key}) : super(key: key);
+class CustomCoachProfileSettings extends StatelessWidget {
+  CustomCoachProfileSettings({Key? key}) : super(key: key);
 
   final FunctionsController controller = Get.find();
   final UserProfileOptionsController userProfileOptionsController = Get.put(UserProfileOptionsController());
@@ -20,7 +23,46 @@ class CustomProfileSettings extends StatelessWidget {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(80),
-        child: ProfileAppBar(),
+        child: AppBar(
+          leading: IconButton(
+      icon: Icon(Icons.arrow_back),
+      onPressed: () {
+        Get.offAll(() => HomePageCoach());
+      },
+    ),
+      title: Text(
+        capitalize(AppTexts.profile),
+        style: const TextStyle(
+          color: Colors.white,
+          fontSize: 25,
+        ),
+      ),
+      toolbarHeight: 80,
+      iconTheme: const IconThemeData(color: Colors.white),
+      actions: [
+        GetBuilder<SignOutController>(
+            init: SignOutController(),
+            builder: (signOutController) {
+              return ElevatedButton.icon(
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColors.darkBlue, elevation: 0),
+                label: Text(
+                  capitalize(AppTexts.logOut),
+                  style: const TextStyle(color: Colors.red),
+                ),
+                onPressed: () {
+                  signOutController.signOut();
+                },
+                icon: const Icon(
+                  Icons.logout,
+                  color: Colors.red,
+                ),
+              );
+            }),
+      ],
+      backgroundColor: Colors.transparent,
+      elevation: 0,
+    ),
       ),
       backgroundColor: Get.arguments[0],
       body: FutureBuilder<bool>(

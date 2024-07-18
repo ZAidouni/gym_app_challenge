@@ -24,6 +24,7 @@ class MainWorkoutCard extends StatelessWidget {
     required this.sectionTitle,
     required this.imagePath,
     required this.description,
+    required this.localisation,
     required this.timeLeft,
     required this.isFavortite,
   }) : super(key: key);
@@ -40,6 +41,7 @@ class MainWorkoutCard extends StatelessWidget {
       reviews,
       durationInMinutes,
       setsNumber,
+      localisation,
       movesNumber;
   final FunctionsController controller = Get.put(FunctionsController());
   bool isFavortite = false;
@@ -93,6 +95,7 @@ class MainWorkoutCard extends StatelessWidget {
                   comments: comments ?? "?",
                   priceInDollars: priceInDollars ?? "?",
                   hasFreeTrial: hasFreeTrial ?? "?",
+                  localisation: localisation ?? "?",
                 ));
           },
           child: AspectRatio(

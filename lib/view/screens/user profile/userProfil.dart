@@ -50,8 +50,6 @@ class _UserProfileState extends State<UserProfile> {
     final prompt =
         'Génère moi une description avec de la motivation en max 60 mots pour mon niveau de progression en se basant sur le nombre d\'exerecise Full body ($fullBody), Legs ($legs), Hard workout ($workouts), Cardio ($cardio), Crossfit ($crossfit) que j\'ai effectués.';
 
-    print('Generating description with prompt: $prompt'); // Debug print
-
     try {
       final generatedDescription =
           await openAIService.generateDescription(prompt);

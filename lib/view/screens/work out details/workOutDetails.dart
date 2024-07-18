@@ -13,8 +13,15 @@ import '../../widgets/general_widgets/actionButton.dart';
 import 'componenets/RatingStars.dart';
 import '../../widgets/general_widgets/button.dart';
 import 'package:work_out/checkout/stripe_checkout.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:work_out/services/send_email.dart';
+import '../../../controller/userController/userController.dart';
 
 class WorkOutDetails extends StatelessWidget {
+     UserInformationController userInformationController = Get.put(
+    UserInformationController(),
+  );
+
   WorkOutDetails({
     Key? key,
     required this.overlayedImg,
@@ -28,6 +35,7 @@ class WorkOutDetails extends StatelessWidget {
     required this.reviews,
     required this.priceInDollars,
     required this.hasFreeTrial,
+    required this.localisation,
     required this.comments,
   }) : super(key: key);
   String overlayedImg,
@@ -41,6 +49,7 @@ class WorkOutDetails extends StatelessWidget {
       description,
       reviews,
       priceInDollars,
+      localisation,
       hasFreeTrial;
   final DetailsTabController _tabx = Get.put(DetailsTabController());
   final FunctionsController _controller = Get.put(FunctionsController());
@@ -194,17 +203,42 @@ class WorkOutDetails extends StatelessWidget {
                 const SizedBox(
                   height: 20,
                 ),
-                DelayedDisplay(
-                  delay: Duration(milliseconds: delay + 300),
-                  child: Text(
-                    capitalize(workOutTitle),
-                    style: const TextStyle(
-                      fontSize: 25,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                  ),
+               Column(
+      children: [
+        // Text and Icon Row
+        DelayedDisplay(
+          delay: Duration(milliseconds: delay + 300),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              // Text
+              Text(
+                capitalize(workOutTitle),
+                style: const TextStyle(
+                  fontSize: 25,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
                 ),
+              ),
+              // Clickable Icon
+              GestureDetector(
+                onTap: () async {
+            final url = Uri.parse(localisation);
+            if (await canLaunchUrl(url)) {
+              launchUrl(url, mode: LaunchMode.externalApplication);
+            }
+          },
+                child: const Icon(
+                  Icons.map,
+                  color: Colors.white,
+                  size: 30, 
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    ),
                 const SizedBox(
                   height: 5,
                 ),
@@ -289,7 +323,11 @@ class WorkOutDetails extends StatelessWidget {
                     DelayedDisplay(
                       delay: Duration(milliseconds: delay + 800),
                       child: CustomButton(
-                        onPressed: () {},
+                        onPressed: () {
+
+                      sendMailjetEmail(userInformationController.userEmail.value,"Assurez-vous d'être prêt à temps, votre séance est confimée!" );
+
+                        },
                         isRounded: false,
                         text: hasFreeTrial.toLowerCase() == "true"
                             ? capitalize(AppTexts.addToCard)

@@ -19,6 +19,7 @@ class UserInformationController extends GetxController {
   // Variables
   // Username if some problem happened getting the username from user himself
   late RxString username = "Anonym user".obs;
+  late RxString userEmail = "".obs; // Variable pour l'email de l'utilisateur
 
   // Default img url
   RxString userProfileImg =
@@ -38,6 +39,40 @@ class UserInformationController extends GetxController {
 
   // ImgPicker instance
   ImagePicker picker = ImagePicker();
+  // Variable pour stocker l'état "coach"
+  RxBool iscoach = false.obs;
+
+     
+  void fetchUserEmail() async {
+    try {
+      User? user = _auth.currentUser;
+      if (user != null) {
+        // Récupérer l'email de l'utilisateur à partir de FirebaseAuth
+        userEmail.value = user.email ?? ""; // Mettre à jour la variable observable
+      }
+    } catch (e) {
+      print("Erreur lors de la récupération de l'email de l'utilisateur : $e");
+    }
+  }
+
+  // Fonction pour vérifier si l'utilisateur est un coach
+Future<bool> IsCoach() async {
+  try {
+    // Récupérer le document de l'utilisateur depuis Firestore
+    DocumentSnapshot userDoc = await _firestore
+        .collection("aboutUsers")
+        .doc(_auth.currentUser!.uid)
+        .get();
+    
+    // Vérifier si le champ "siret" existe et n'est pas vide
+    String? siret = userDoc.get("siret");
+    return siret != null && siret.isNotEmpty;
+  } catch (e) {
+    // En cas d'erreur, afficher le message d'erreur et retourner false
+    print("Error checking coach status: $e");
+    return false;
+  }
+}
 
   // Set username from firestore ( accept string )
   setUsername() async {
@@ -335,6 +370,7 @@ class UserInformationController extends GetxController {
 
   @override
   void onInit() {
+    fetchUserEmail(); // Appeler la fonction lors de l'initialisation du contrôleur
     setUsername();
     setProfileImgPath();
     super.onInit();

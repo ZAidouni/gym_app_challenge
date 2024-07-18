@@ -1,7 +1,7 @@
 
 class WorkoutsList {
 // Class responsible for showing workouts (To-do : turn it into API)
-  static List allWorkoutsList = [
+  static List legsWorkoutsList = [
     {
       "workOutTitle": "Yoga exercises",
       "imagePath": "assets/img/GetStartedOverlay.png",
@@ -16,6 +16,7 @@ class WorkoutsList {
       "priceInDollars": "12,00",
       "hasFreeTrial": "false",
       "isDiscounted": "true",
+      "localisation": "https://maps.app.goo.gl/qom4Xx1RCpFiMPWt5",
     },
     {
       "workOutTitle": "Example exercises",
@@ -214,7 +215,7 @@ class WorkoutsList {
     },
   ];
 
-  static List popularWorkoutsList = [
+  static List cardioWorkoutsList = [
     {
       "workOutTitle": "Hard exercises",
       "imagePath": "assets/img/loginOverlayImg.png",
@@ -337,6 +338,10 @@ class WorkoutsList {
       "comments": "comments",
       "priceInDollars": "8,00",
       "hasFreeTrial": "true",
+      "isWorkoutOfDay": "true",
+      "isDiscounted": "true",
+
+
     },
     {
       "workOutTitle": "random hard exercises",

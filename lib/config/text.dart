@@ -67,9 +67,9 @@ class AppTexts {
   static String profile = "profile";
   static String logOut = "log out";
   static String workoutOfDay = "Workout of the day";
-  static String withDiscounts = 'with discounts';
-  static String basedOnReviews = "based on users reviews";
-  static String dailyFreeWorkout = "Workout of the day";
+  static String pushyourlimit = 'push your limits';
+  static String basedOnReviews = "based on coach reviews";
+  static String dailyFreeWorkout = "For you";
   static String choosedCarefully = "choosed carefully";
   static String allWorkouts = 'all workouts';
   static String pleaseVerifyEmail = "Please verify your email first";

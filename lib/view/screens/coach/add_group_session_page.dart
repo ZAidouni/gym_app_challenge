@@ -9,6 +9,11 @@ import '../../widgets/general_widgets/mainScreenTitle.dart';
 import '../../widgets/general_widgets/screen_background_image.dart';
 import '../../widgets/general_widgets/text field.dart';
 import '../../widgets/general_widgets/titleWithDescription.dart';
+import 'package:intl/intl.dart'; // For date formatting
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+import 'package:work_out/services/openai_service.dart';
+import 'package:work_out/view/screens/coach/my_sessions_page.dart';
 
 class AddGroupSessionPage extends StatefulWidget {
   @override
@@ -21,17 +26,16 @@ class _AddGroupSessionPageState extends State<AddGroupSessionPage> with DelayHel
 
   // Controllers
   final TextEditingController _workOutTitleController = TextEditingController();
-  final TextEditingController _imagePathController = TextEditingController();
   final TextEditingController _timeLeftInHourController = TextEditingController();
   final TextEditingController _movesNumberController = TextEditingController();
   final TextEditingController _setsNumberController = TextEditingController();
   final TextEditingController _durationInMinutesController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
-  final TextEditingController _commentsController = TextEditingController();
-  final TextEditingController _priceInDollarsController = TextEditingController();
+  final TextEditingController _dateController = TextEditingController();
+    final TextEditingController _localisation = TextEditingController();
+
 
   // State variables for boolean values
-  bool _hasFreeTrial = false;
   bool _isWorkoutOfDay = false;
 
   // Dropdown values
@@ -52,6 +56,7 @@ class _AddGroupSessionPageState extends State<AddGroupSessionPage> with DelayHel
     '4',
     '5',
   ];
+
 
   // Common decoration for both text fields and dropdowns
   InputDecoration _inputDecoration(String label) {
@@ -77,6 +82,22 @@ class _AddGroupSessionPageState extends State<AddGroupSessionPage> with DelayHel
       hintStyle: TextStyle(color: Colors.white.withOpacity(0.6)),
       alignLabelWithHint: true,
     );
+  }
+
+  // Function to show the DatePicker and update the controller
+  void _selectDate(BuildContext context) async {
+    DateTime? pickedDate = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2101),
+    );
+    
+    if (pickedDate != null) {
+      setState(() {
+        _dateController.text = DateFormat('dd/MM/yyyy').format(pickedDate);
+      });
+    }
   }
 
   @override
@@ -141,13 +162,13 @@ class _AddGroupSessionPageState extends State<AddGroupSessionPage> with DelayHel
                             decoration: _inputDecoration('Type de l\'exercice'),
                             dropdownColor: const Color.fromARGB(255, 0, 0, 0),
                             value: _selectedExerciseType,
-                            style: const TextStyle(color: Colors.white), // Couleur du texte sélectionné
+                            style: const TextStyle(color: Colors.white),
                             items: _exerciseTypes.map((String value) {
                               return DropdownMenuItem<String>(
                                 value: value,
                                 child: Text(
                                   value,
-                                  style: const TextStyle(color: Color.fromARGB(255, 255, 255, 255)), // Couleur des éléments de la liste
+                                  style: const TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
                                 ),
                               );
                             }).toList(),
@@ -155,6 +176,12 @@ class _AddGroupSessionPageState extends State<AddGroupSessionPage> with DelayHel
                               setState(() {
                                 _selectedExerciseType = newValue;
                               });
+                            },
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Ce champ est requis';
+                              }
+                              return null;
                             },
                           ),
                         ),
@@ -165,6 +192,12 @@ class _AddGroupSessionPageState extends State<AddGroupSessionPage> with DelayHel
                             keyboardType: TextInputType.name,
                             controller: _workOutTitleController,
                             label: 'Titre de l\'exercice',
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Ce champ est requis';
+                              }
+                              return null;
+                            },
                           ),
                         ),
                         const SizedBox(height: 30),
@@ -174,6 +207,15 @@ class _AddGroupSessionPageState extends State<AddGroupSessionPage> with DelayHel
                             keyboardType: TextInputType.number,
                             controller: _timeLeftInHourController,
                             label: 'Temps de l\'exercice',
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Ce champ est requis';
+                              }
+                                if (!value.isNum) {
+                                return 'veuillez entrez un nombre';
+                              }
+                              return null;
+                            },
                           ),
                         ),
                         const SizedBox(height: 30),
@@ -183,6 +225,15 @@ class _AddGroupSessionPageState extends State<AddGroupSessionPage> with DelayHel
                             keyboardType: TextInputType.number,
                             controller: _movesNumberController,
                             label: 'Nombre de mouvements',
+                            validator: (value) {
+                              if (value == null || value.isEmpty ) {
+                                return 'Ce champ est requis';
+                              }
+                              if (!value.isNum) {
+                                return 'veuillez entrez un nombre';
+                              }
+                              return null;
+                            },
                           ),
                         ),
                         const SizedBox(height: 30),
@@ -192,6 +243,15 @@ class _AddGroupSessionPageState extends State<AddGroupSessionPage> with DelayHel
                             keyboardType: TextInputType.number,
                             controller: _setsNumberController,
                             label: 'Nombre de séries',
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Ce champ est requis';
+                              }
+                                if (!value.isNum) {
+                                return 'veuillez entrez un nombre';
+                              }
+                              return null;
+                            },
                           ),
                         ),
                         const SizedBox(height: 30),
@@ -201,6 +261,15 @@ class _AddGroupSessionPageState extends State<AddGroupSessionPage> with DelayHel
                             keyboardType: TextInputType.number,
                             controller: _durationInMinutesController,
                             label: 'Durée de séries en minutes',
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Ce champ est requis';
+                              }
+                                if (!value.isNum) {
+                                return 'veuillez entrez un nombre';
+                              }
+                              return null;
+                            },
                           ),
                         ),
                         const SizedBox(height: 30),
@@ -210,13 +279,13 @@ class _AddGroupSessionPageState extends State<AddGroupSessionPage> with DelayHel
                             decoration: _inputDecoration('Évaluation'),
                             dropdownColor: const Color.fromARGB(255, 0, 0, 0),
                             value: _selectedRating,
-                            style: const TextStyle(color: Colors.white), // Couleur du texte sélectionné
+                            style: const TextStyle(color: Colors.white),
                             items: _ratings.map((String value) {
                               return DropdownMenuItem<String>(
                                 value: value,
                                 child: Text(
                                   value,
-                                  style: const TextStyle(color: Color.fromARGB(255, 255, 255, 255)), // Couleur des éléments de la liste
+                                  style: const TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
                                 ),
                               );
                             }).toList(),
@@ -224,6 +293,12 @@ class _AddGroupSessionPageState extends State<AddGroupSessionPage> with DelayHel
                               setState(() {
                                 _selectedRating = newValue;
                               });
+                            },
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Ce champ est requis';
+                              }
+                              return null;
                             },
                           ),
                         ),
@@ -234,62 +309,153 @@ class _AddGroupSessionPageState extends State<AddGroupSessionPage> with DelayHel
                             keyboardType: TextInputType.text,
                             controller: _descriptionController,
                             label: 'Description',
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Ce champ est requis';
+                              }
+                              return null;
+                            },
                           ),
                         ),
                         const SizedBox(height: 30),
                         DelayedDisplay(
                           delay: getDelayDuration(),
-                          child: CustomTextField(
-                            keyboardType: TextInputType.text,
-                            controller: _commentsController,
-                            label: 'Commentaires',
-                          ),
-                        ),
-                      
-                        const SizedBox(height: 30),
-                        Row(
-  children: [
-    Checkbox(
-      value: _isWorkoutOfDay,
-      onChanged: (bool? value) {
-        setState(() {
-          _isWorkoutOfDay = value ?? false;
-        });
-      },
-      checkColor: Colors.white, // Couleur du coche (marqueur)
-      activeColor: Colors.transparent, // Couleur de fond lorsque la case est cochée (transparente pour ne pas changer le fond)
-      side: BorderSide(color: Colors.white), // Couleur du bord de la case à cocher
-    ),
-    const SizedBox(width: 10), // Espacement entre la checkbox et le texte
-    const Text(
-      'Entraînement du jour',
-      style: TextStyle(
-        color: Colors.white, // Couleur du texte
-        fontSize: 16, // Taille du texte (si nécessaire)
-      ),
-    ),
-  ],
-),
-                        const SizedBox(height: 20),
-                     Column(
-                        children: [
-                          DelayedDisplay(
-                            delay: getDelayDuration(),
-                            child: CustomButton(
-                              onPressed: () {
-                               
-                              },
-                              isRounded: false,
-                              text: (AppTexts.publier),
-                              isOutlined: false,
+                          child: GestureDetector(
+                            onTap: () {
+                              _selectDate(context);
+                            },
+                            child: AbsorbPointer(
+                              child: CustomTextField(
+                                keyboardType: TextInputType.text,
+                                controller: _dateController,
+                                label: 'Date de la séance',
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Ce champ est requis';
+                                  }
+                                  return null;
+                                },
+                              ),
                             ),
                           ),
-                          const SizedBox(
-                            height: 30,
-                          )
-                        
-                        ],
-                      )
+                        ),
+                         const SizedBox(height: 30),
+                        DelayedDisplay(
+                          delay: getDelayDuration(),
+                          child: CustomTextField(
+                            keyboardType: TextInputType.text,
+                            controller: _localisation,
+                            label: 'Lien google maps de votre salle',
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Ce champ est requis';
+                              }
+                              return null;
+                            },
+                          ),
+                        ),
+                        const SizedBox(height: 30),
+                        Row(
+                          children: [
+                            Checkbox(
+                              value: _isWorkoutOfDay,
+                              onChanged: (bool? value) {
+                                setState(() {
+                                  _isWorkoutOfDay = value ?? false;
+                                });
+                              },
+                              checkColor: Colors.white,
+                              activeColor: Colors.transparent,
+                              side: BorderSide(color: Colors.white),
+                            ),
+                            const SizedBox(width: 10),
+                            const Text(
+                              'Entraînement du jour',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 16,
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 20),
+                        DelayedDisplay(
+                          delay: getDelayDuration(),
+                          child: CustomButton(
+                            onPressed: () async {
+                              if (_formKey.currentState?.validate() ?? false) {
+                                
+    final openAIService = OpenAIService();
+    final prompt =
+        'Génère moi une review en max 60 mots pour cet exercise creer par le coach en se basant sur le titre de l\'exercie ($_workOutTitleController), le nombre de mouvement ($_movesNumberController), le nombre de repétition ($_setsNumberController) et la description ($_descriptionController)';
+
+   
+      final generatedDescription =
+          await openAIService.generateDescription(prompt);
+
+  
+  
+                                // Gather the data
+                                final Map<String, dynamic> data = {
+                                  'workOutTitle': _workOutTitleController.text,
+                                  'timeLeftInHour': _timeLeftInHourController.text,
+                                  'movesNumber': _movesNumberController.text,
+                                  'setsNumber': _setsNumberController.text,
+                                  'durationInMinutes': _durationInMinutesController.text,
+                                  'description': _descriptionController.text,
+                                  'date': _dateController.text,
+                                  'localisation': _localisation.text,
+                                  'exerciseType': _selectedExerciseType,
+                                  'reviews': generatedDescription,
+                                  'rating': _selectedRating,
+                                  'isWorkoutOfDay': _isWorkoutOfDay,
+                                };
+                                // Convert data to JSON
+                                final String jsonData = jsonEncode(data);
+                                // URL of your backend endpoint
+                                final String url = 'https://example.com/api/group-session'; // Replace with your backend URL
+
+                                try {
+                                  // Send POST request
+                                  final response = await http.post(
+                                    Uri.parse(url),
+                                    headers: <String, String>{
+                                      'Content-Type': 'application/json; charset=UTF-8',
+                                    },
+                                    body: jsonData,
+                                  );
+
+                                  if (true) {
+                                    // If the server returns a 200 OK response, consider it a success
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(content: Text('Session added successfully!')),
+                                    );
+                                    Get.to(() => CoachSessionsPage());
+                                  } else {
+                                    // If the server did not return a 200 OK response, handle it
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(content: Text('Failed to add session.')),
+                                    );
+                                  }
+                                } catch (e) {
+                                  // Handle exceptions, e.g., network issues
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(content: Text('Error: $e')),
+                                  );
+                                }
+                              } else {
+                                // If the form is not valid, show an error message
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(content: Text('Please fill all fields correctly.')),
+                                );
+                              }
+                            },
+                            isRounded: false,
+                            text: AppTexts.publier,
+                            isOutlined: false,
+                          ),
+                        ),
+                        const SizedBox(height: 30),
                       ],
                     ),
                   ),
