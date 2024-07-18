@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:work_out/controller/functionsController.dart';
+import 'package:work_out/services/VideoPlayerPage.dart';
 
 class PlayButton extends StatelessWidget {
   PlayButton({
     Key? key,
     this.onPressed,
   }) : super(key: key);
+
   final void Function()? onPressed;
   final FunctionsController functionsController = Get.find();
   double scale = 1.0;
@@ -42,7 +44,9 @@ class PlayButton extends StatelessWidget {
               child: SizedBox(
                 width: 40,
                 child: IconButton(
-                  onPressed: onPressed ?? () {},
+                  onPressed: onPressed ?? () {
+                    Get.to(() => VideoPlayerPage(videoUrl: 'https://firebasestorage.googleapis.com/v0/b/gym-app-challenge.appspot.com/o/0718%20(2).mp4?alt=media&token=862fc660-1a31-45c5-a63c-fb4063d1ed89')); 
+                  },
                   icon: Container(
                     decoration: BoxDecoration(
                         color: Theme.of(context).primaryColor,
