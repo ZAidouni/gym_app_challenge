@@ -8,7 +8,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import '../coach/my_sessions_page.dart';
+import '../gym/sessions_page.dart';
 
 String randomString() {
   final random = Random.secure();
@@ -51,8 +51,9 @@ class _ChatScreenState extends State<ChatScreen> {
       }).toList();
 
       setState(() {
-        _messages.clear();
-        _messages.addAll(messages);
+        _messages
+          ..clear()
+          ..addAll(messages.reversed);  // Reverse the list to show the newest messages at the bottom
       });
     });
   }
@@ -60,7 +61,7 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   Widget build(BuildContext context) => Scaffold(
     appBar: AppBar(
-      title: const Text('Conversation'),
+      title: const Text('Conversation')
     ),
     body: _user == null
         ? const Center(child: CircularProgressIndicator())
