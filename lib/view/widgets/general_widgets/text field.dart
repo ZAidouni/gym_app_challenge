@@ -1,31 +1,33 @@
 import 'package:flutter/material.dart';
 
 class CustomTextField extends StatelessWidget {
+  // Add `validator` parameter to support form validation
+  final String label;
+  final bool obscureText;
+  final TextEditingController controller;
+  final TextInputType keyboardType;
+  final FormFieldValidator<String>? validator;
+
   CustomTextField({
     Key? key,
     required this.label,
     this.obscureText = false,
     required this.controller,
     required this.keyboardType,
+    this.validator,
   }) : super(key: key);
-
-  final String label;
-  final bool obscureText;
-  final TextEditingController controller;
-  final TextInputType keyboardType;
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
+    return TextFormField(
       keyboardType: keyboardType,
       controller: controller,
-      obscuringCharacter: '•',
       obscureText: obscureText,
-      style: const TextStyle(color: Colors.white), // Couleur du texte de l'input
+      style: const TextStyle(color: Colors.white), // Input text color
       decoration: InputDecoration(
         contentPadding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
         filled: true,
-        fillColor: const Color(0xFF1D1E33), // Fond de l'input
+        fillColor: const Color(0xFF1D1E33), // Input background color
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10.0),
           borderSide: BorderSide.none,
@@ -39,11 +41,12 @@ class CustomTextField extends StatelessWidget {
           borderSide: BorderSide.none,
         ),
         labelText: label,
-        labelStyle: TextStyle(color: Colors.white.withOpacity(0.6)), // Couleur du label
+        labelStyle: TextStyle(color: Colors.white.withOpacity(0.6)), // Label color
         hintText: label,
-        hintStyle: TextStyle(color: Colors.white.withOpacity(0.6)), // Couleur du texte indicatif
+        hintStyle: TextStyle(color: Colors.white.withOpacity(0.6)), // Hint text color
         alignLabelWithHint: true,
       ),
+      validator: validator, // Add validator to TextFormField
     );
   }
 }

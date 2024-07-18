@@ -13,7 +13,7 @@ import '../../widgets/general_widgets/actionButton.dart';
 import 'componenets/RatingStars.dart';
 import '../../widgets/general_widgets/button.dart';
 import 'package:work_out/checkout/stripe_checkout.dart';
-
+import 'package:url_launcher/url_launcher.dart';
 class WorkOutDetails extends StatelessWidget {
   WorkOutDetails({
     Key? key,
@@ -28,6 +28,7 @@ class WorkOutDetails extends StatelessWidget {
     required this.reviews,
     required this.priceInDollars,
     required this.hasFreeTrial,
+    required this.localisation,
     required this.comments,
   }) : super(key: key);
   String overlayedImg,
@@ -41,6 +42,7 @@ class WorkOutDetails extends StatelessWidget {
       description,
       reviews,
       priceInDollars,
+      localisation,
       hasFreeTrial;
   final DetailsTabController _tabx = Get.put(DetailsTabController());
   final FunctionsController _controller = Get.put(FunctionsController());
@@ -194,17 +196,42 @@ class WorkOutDetails extends StatelessWidget {
                 const SizedBox(
                   height: 20,
                 ),
-                DelayedDisplay(
-                  delay: Duration(milliseconds: delay + 300),
-                  child: Text(
-                    capitalize(workOutTitle),
-                    style: const TextStyle(
-                      fontSize: 25,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                  ),
+               Column(
+      children: [
+        // Text and Icon Row
+        DelayedDisplay(
+          delay: Duration(milliseconds: delay + 300),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              // Text
+              Text(
+                capitalize(workOutTitle),
+                style: const TextStyle(
+                  fontSize: 25,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
                 ),
+              ),
+              // Clickable Icon
+              GestureDetector(
+                onTap: () async {
+            final url = Uri.parse(localisation);
+            if (await canLaunchUrl(url)) {
+              launchUrl(url, mode: LaunchMode.externalApplication);
+            }
+          },
+                child: Icon(
+                  Icons.map, // Replace with your desired icon
+                  color: Colors.white,
+                  size: 30, // Increase size as needed
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    ),
                 const SizedBox(
                   height: 5,
                 ),

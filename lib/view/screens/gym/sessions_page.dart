@@ -13,7 +13,7 @@ class SessionsPage extends StatelessWidget {
     },
     {
       "title": "Séance de Yoga",
-      "image": "assets/img/img/welcomeOverlayImg.png",
+      "image": "assets/img/welcomeOverlayImg.png",
     },
   ];
 

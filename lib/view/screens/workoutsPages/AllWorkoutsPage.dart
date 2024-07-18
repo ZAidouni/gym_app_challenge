@@ -98,6 +98,8 @@ class AllWorkoutsPage extends StatelessWidget {
                     Get.arguments[1], "isWorkoutOfDay", "true")["setsNumber"],
                 reviews: controller.filterWorkoutWith(
                     Get.arguments[1], "isWorkoutOfDay", "true")["reviews"],
+                localisation: controller.filterWorkoutWith(
+                    Get.arguments[1], "isWorkoutOfDay", "true")["localisation"],
               ),
             ),
             const SizedBox(
@@ -150,6 +152,8 @@ class AllWorkoutsPage extends StatelessWidget {
                     Get.arguments[1], "dailyFreeWorkout", "true")["setsNumber"],
                 reviews: controller.filterWorkoutWith(
                     Get.arguments[1], "dailyFreeWorkout", "true")["reviews"],
+                localisation: controller.filterWorkoutWith(
+                    Get.arguments[1], "dailyFreeWorkout", "true")["localisation"],
               ),
             ),
             const SizedBox(
