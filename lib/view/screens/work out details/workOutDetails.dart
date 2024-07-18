@@ -221,10 +221,10 @@ class WorkOutDetails extends StatelessWidget {
               launchUrl(url, mode: LaunchMode.externalApplication);
             }
           },
-                child: Icon(
-                  Icons.map, // Replace with your desired icon
+                child: const Icon(
+                  Icons.map,
                   color: Colors.white,
-                  size: 30, // Increase size as needed
+                  size: 30, 
                 ),
               ),
             ],

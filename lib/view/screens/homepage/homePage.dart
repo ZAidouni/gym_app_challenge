@@ -152,7 +152,7 @@ class _HomePageState extends State<HomePage> {
                                 title: capitalize(
                                   'Full body',
                                 ),
-                                dataList: WorkoutsList.allWorkoutsList,
+                                dataList: WorkoutsList.legsWorkoutsList,
                               ),
                             ),
                             Center(
@@ -160,7 +160,7 @@ class _HomePageState extends State<HomePage> {
                                 title: capitalize(
                                   'Legs',
                                 ),
-                                dataList: WorkoutsList.popularWorkoutsList,
+                                dataList: WorkoutsList.cardioWorkoutsList,
                               ),
                             ),
                             Center(

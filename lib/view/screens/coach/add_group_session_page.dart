@@ -398,7 +398,6 @@ class _AddGroupSessionPageState extends State<AddGroupSessionPage> with DelayHel
 
                                 // Convert data to JSON
                                 final String jsonData = jsonEncode(data);
-print(jsonData);
                                 // URL of your backend endpoint
                                 final String url = 'https://example.com/api/group-session'; // Replace with your backend URL
 
