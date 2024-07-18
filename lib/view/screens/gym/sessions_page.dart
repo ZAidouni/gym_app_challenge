@@ -58,7 +58,7 @@ class SessionsPage extends StatelessWidget {
                 Image.asset(
                   session["image"]!,
                   fit: BoxFit.cover,
-                  height: 120,
+                  height: 100,
                   width: double.infinity,
                 ),
                 Padding(
@@ -67,7 +67,7 @@ class SessionsPage extends StatelessWidget {
                     session["title"]!,
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: 16,
+                      fontSize: 15,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -80,8 +80,8 @@ class SessionsPage extends StatelessWidget {
                       Expanded(
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.blue,
-                            padding: EdgeInsets.symmetric(vertical: 12),
+                            backgroundColor: Colors.green,
+                            padding: EdgeInsets.symmetric(vertical: 10),
                           ),
                           onPressed: () {
                             Get.to(() => ChatScreen(sessionId: session["id"]));
@@ -99,8 +99,8 @@ class SessionsPage extends StatelessWidget {
                       Expanded(
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.red,
-                            padding: EdgeInsets.symmetric(vertical: 12),
+                            backgroundColor: Colors.redAccent,
+                            padding: EdgeInsets.symmetric(vertical: 10),
                           ),
                           onPressed: () {
                             // Action for the delete button
