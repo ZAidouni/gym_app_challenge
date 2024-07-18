@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import '../chat/chat_screen.dart';
 
 class CoachSessionsPage extends StatelessWidget {
-  // Liste simulée des séances avec des titres et des images
+  // List of sessions with titles and images
   final List<Map<String, String>> sessions = [
     {
       "title": "Séance de Cardio",
@@ -23,26 +25,26 @@ class CoachSessionsPage extends StatelessWidget {
       backgroundColor: const Color(0xff131429),
       appBar: AppBar(
         backgroundColor: const Color(0xff131429),
-        title: Text(
+        title: const Text(
           'Mes Séances',
           style: TextStyle(
-            color: Colors.white, // Changez cette couleur selon vos besoins
+            color: Colors.white,
           ),
         ),
       ),
       body: GridView.builder(
-        padding: EdgeInsets.all(10),
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2, // Nombre de colonnes
+        padding: const EdgeInsets.all(10),
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
           crossAxisSpacing: 10,
           mainAxisSpacing: 10,
-          childAspectRatio: 0.75, // Proportion des éléments
+          childAspectRatio: 0.75,
         ),
         itemCount: sessions.length,
         itemBuilder: (context, index) {
           final session = sessions[index];
           return Card(
-            color: const Color(0xff1C1F2E), // Couleur de fond de la carte
+            color: const Color(0xff1C1F2E),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -51,19 +53,19 @@ class CoachSessionsPage extends StatelessWidget {
                   fit: BoxFit.cover,
                   height: 120,
                   width: double.infinity,
-                ), // Affiche l'image
+                ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
                     session["title"]!,
-                    style: TextStyle(
-                      color: Colors.white, // Couleur du texte
+                    style: const TextStyle(
+                      color: Colors.white,
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),
-                Spacer(),
+                const Spacer(),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Row(
@@ -71,13 +73,13 @@ class CoachSessionsPage extends StatelessWidget {
                       Expanded(
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.blue, // Couleur du bouton "Détails"
-                            padding: EdgeInsets.symmetric(vertical: 12), // Ajustez le padding si nécessaire
+                            backgroundColor: Colors.blue,
+                            padding: const EdgeInsets.symmetric(vertical: 12),
                           ),
                           onPressed: () {
-                            // Action pour le premier bouton
+                            Get.to(() => const ChatScreen());
                           },
-                          child: Row(
+                          child: const Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Icon(Icons.message, color: Colors.white),
@@ -86,17 +88,17 @@ class CoachSessionsPage extends StatelessWidget {
                           ),
                         ),
                       ),
-                      SizedBox(width: 10), // Espace entre les boutons
+                      const SizedBox(width: 10),
                       Expanded(
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.red, // Couleur du bouton "Supprimer"
-                            padding: EdgeInsets.symmetric(vertical: 12), // Ajustez le padding si nécessaire
+                            backgroundColor: Colors.red,
+                            padding: const EdgeInsets.symmetric(vertical: 12),
                           ),
                           onPressed: () {
-                            // Action pour le deuxième bouton
+                            // Action for the delete button
                           },
-                          child: Row(
+                          child: const Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Icon(Icons.delete, color: Colors.white),

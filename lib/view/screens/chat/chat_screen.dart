@@ -7,25 +7,13 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import '../gym/sessions_page.dart';
+
+import '../coach/my_sessions_page.dart';
 
 String randomString() {
   final random = Random.secure();
   final values = List<int>.generate(16, (i) => random.nextInt(255));
   return base64UrlEncode(values);
-}
-
-void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) => const GetMaterialApp(
-    home: ChatScreen(),
-  );
 }
 
 class ChatScreen extends StatefulWidget {
@@ -73,14 +61,6 @@ class _ChatScreenState extends State<ChatScreen> {
   Widget build(BuildContext context) => Scaffold(
     appBar: AppBar(
       title: const Text('Conversation'),
-      actions: [
-        IconButton(
-          icon: const Icon(Icons.schedule),
-          onPressed: () {
-            Get.to(() => SessionsPage());
-          },
-        ),
-      ],
     ),
     body: _user == null
         ? const Center(child: CircularProgressIndicator())
