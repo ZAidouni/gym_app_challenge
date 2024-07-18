@@ -79,6 +79,29 @@ class ForgotPasswordPage extends StatelessWidget {
                       isOutlined: true,
                     ),
                   ),
+                  const SizedBox(height: 50),
+                 Align(
+                        alignment: Alignment.centerRight,
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 15),
+                          child: DelayedDisplay(
+                            delay: Duration(milliseconds: delay + 300),
+                            child: GestureDetector(
+                              onTap: () {
+                                Get.toNamed("/login");
+                              },
+                              child: Text(
+                                capitalize(
+                                  AppTexts.login,
+                                ),
+                                style: const TextStyle(
+                                    color: Colors.white,
+                                    decoration: TextDecoration.underline),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
                   const SizedBox(height: 20),
                 ],
               ),
