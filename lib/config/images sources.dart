@@ -19,7 +19,6 @@ class ImgSrc {
   static String imgVerification = "assets/img/email_verif.png";
   static String homepageOverlay = 'assets/img/welcomePageOverlay.png';
 
-  static String noImgAvailable = "assets/img/No_image_available.png";
 
   String randomFromAssetsList() {
     return imgList[Random().nextInt(imgList.length)];

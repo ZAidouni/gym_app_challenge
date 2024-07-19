@@ -136,7 +136,7 @@ class _HomePageState extends State<HomePage> {
                               width: 2,
                             ),
                           ),
-                            labelPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 8), // Ajustez les valeurs selon vos besoins
+                            labelPadding: EdgeInsets.symmetric(horizontal:20, vertical: 8), // Ajustez les valeurs selon vos besoins
                           controller: _tabx.workOutTabController,
                           tabs: _tabx.workOutTabs,
                         ),
@@ -153,7 +153,7 @@ class _HomePageState extends State<HomePage> {
                                 title: capitalize(
                                   'Full body',
                                 ),
-                                dataList: WorkoutsList.legsWorkoutsList,
+                                dataList: WorkoutsList.fullBodyWorkoutsList,
                               ),
                             ),
                             Center(
@@ -161,7 +161,7 @@ class _HomePageState extends State<HomePage> {
                                 title: capitalize(
                                   'Legs',
                                 ),
-                                dataList: WorkoutsList.cardioWorkoutsList,
+                                dataList: WorkoutsList.legsWorkoutsList,
                               ),
                             ),
                             Center(
@@ -176,7 +176,7 @@ class _HomePageState extends State<HomePage> {
                                   title: capitalize(
                                     'Cardio',
                                   ),
-                                  dataList: WorkoutsList.fullBodyWorkoutsList),
+                                  dataList: WorkoutsList.cardioWorkoutsList),
                             ),
                             Center(
                               child: TabBarViewSectionHome(
