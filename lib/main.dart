@@ -1,9 +1,10 @@
-import "package:flutter/material.dart";
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:work_out/bindings/initial_binding.dart';
 import 'package:work_out/config/Themes/mainThemeFile.dart';
 import 'package:work_out/config/initial_main_methods/initial_main_methods.dart';
 import 'config/routes.dart';
+import 'config/translations.dart';
 
 void main() async {
   await MainMethods.init();
@@ -18,6 +19,9 @@ class WorkoutApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      translations: AppTranslations(),
+      locale: Get.deviceLocale,
+      fallbackLocale: Locale('en', 'US'),
       initialBinding: InitialBinding(),
       defaultTransition: Transition.fade,
       theme: MainTheme(context).themeData,

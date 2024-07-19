@@ -9,7 +9,7 @@ import 'package:work_out/checkout/stripe_checkout.dart';
 import '../../helpers/string_methods.dart';
 import '../functionsController/dialogsAndLoadingController.dart';
 import '../userController/userController.dart';
-import 'package:work_out/view/screens/gym/sessions_page.dart'; // Importez le fichier contenant SessionsPage
+import 'package:work_out/view/screens/gym/sessions_page.dart';
 
 class UserProfileOptionsController extends GetxController {
   FunctionsController controller = Get.put(FunctionsController());
@@ -17,10 +17,14 @@ class UserProfileOptionsController extends GetxController {
     UserInformationController(),
   );
   DialogsAndLoadingController dialogsAndLoadingController =
-      Get.put(DialogsAndLoadingController());
+  Get.put(DialogsAndLoadingController());
   TextEditingController newUserNameController = TextEditingController();
   TextEditingController newEmailController = TextEditingController();
   TextEditingController newPasswordController = TextEditingController();
+
+  // Add this to manage the selected language
+  RxString selectedLanguage = 'en'.obs;
+
   late List userProfileOptionsList = [
     {
       "optionTitle": "change username",
@@ -133,7 +137,6 @@ class UserProfileOptionsController extends GetxController {
                         isOutlined: false,
                         onPressed: () async {
                           Get.back();
-
                           await userInformationController
                               .updateEmail(newEmailController.text.trim());
                         }),
@@ -179,45 +182,90 @@ class UserProfileOptionsController extends GetxController {
             backgroundColor: Color(0xff131429));
       }
     },
-{
-  "optionTitle": "subscription",
-  "optionIcon": Icons.subscriptions,
-  "optionFunction": () {
-     try {
-  redirectToCheckout(Get.context!);
-} catch (e, stacktrace) {
-  print('Erreur: $e');
-  print('Stacktrace: $stacktrace');
-}
-  }
-},
-
-{
-  "optionTitle": "Mes séances",
-  "optionIcon": Icons.sports_gymnastics,
-  "optionFunction": () {
-     try {
-   Navigator.push(
-                Get.context!,
-                MaterialPageRoute(builder: (context) => SessionsPage()),
-              );
-} catch (e, stacktrace) {
-  print('Erreur: $e');
-  print('Stacktrace: $stacktrace');
-}
-  }
-},
-
-
+    {
+      "optionTitle": "subscription",
+      "optionIcon": Icons.subscriptions,
+      "optionFunction": () {
+        try {
+          redirectToCheckout(Get.context!);
+        } catch (e, stacktrace) {
+          print('Erreur: $e');
+          print('Stacktrace: $stacktrace');
+        }
+      }
+    },
+    {
+      "optionTitle": "My Sessions",
+      "optionIcon": Icons.sports_gymnastics,
+      "optionFunction": () {
+        try {
+          Navigator.push(
+            Get.context!,
+            MaterialPageRoute(builder: (context) => SessionsPage()),
+          );
+        } catch (e, stacktrace) {
+          print('Erreur: $e');
+          print('Stacktrace: $stacktrace');
+        }
+      }
+    },
+    {
+      "optionTitle": "change language".tr,
+      "optionIcon": Icons.language,
+      "optionFunction": () {
+        Get.bottomSheet(
+          Container(
+            width: double.infinity,
+            height: 200,
+            margin: EdgeInsets.symmetric(horizontal: 20),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  "choose language".tr,
+                  style: TextStyle(color: Colors.white, fontSize: 20),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        Get.updateLocale(Locale('en'));
+                        Get.back();
+                      },
+                      child: Text(
+                        "English",
+                        style: TextStyle(color: Colors.white, fontSize: 18),
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        Get.updateLocale(Locale('fr'));
+                        Get.back();
+                      },
+                      child: Text(
+                        "Français",
+                        style: TextStyle(color: Colors.white, fontSize: 18),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          backgroundColor: Color(0xff131429),
+        );
+      }
+    },
     {
       "optionTitle": "Delete user",
       "optionIcon": Icons.delete,
       "optionFunction": () {
         dialogsAndLoadingController.showConfirmWithActions(
-          
-            capitalize("are you sure you want to delete your account ?"),
+          capitalize("are you sure you want to delete your account ?"),
           capitalize("delete"),
-          () {
+              () {
             Get.back();
             userInformationController.deleteUser();
           },

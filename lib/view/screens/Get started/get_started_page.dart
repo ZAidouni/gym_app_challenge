@@ -1,20 +1,27 @@
 import 'package:delayed_display/delayed_display.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:work_out/config/Colors.dart';
 import 'package:work_out/config/text.dart';
+import 'package:work_out/config/text_fr.dart';
 import 'package:work_out/view/widgets/general_widgets/screen_background_image.dart';
-import '../../../config/getStarted/getStartedData.dart';
 import '../../../config/show_delay_mixin.dart';
 import '../../../controller/get_started_controller/get_started_controller.dart';
 import '../../../helpers/string_methods.dart';
 import '../../widgets/general_widgets/mainScreenTitle.dart';
 import '../../widgets/general_widgets/titleWithDescription.dart';
 import 'componenets/get_started_cards_scroll_view.dart';
-import 'package:work_out/config/Colors.dart';
-class GetStartedPage extends GetView<GetStartedController>
-    with DelayHelperMixin {
-  GetStartedPage({Key? key}) : super(key: key);
+
+class GetStartedPage extends GetView<GetStartedController> with DelayHelperMixin {
+  GetStartedPage({super.key});
+
+  // Helper method to get the text based on the selected language
+  String getText(String key) {
+    if (Get.locale?.languageCode == 'fr') {
+      return AppTextsFr.getText(key);
+    } else {
+      return AppTexts.getText(key);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,8 +44,8 @@ class GetStartedPage extends GetView<GetStartedController>
                   DelayedDisplay(
                     delay: getDelayDuration(),
                     child: MainScreenTitle(
-                      mainWord: AppTexts.firstMainWord,
-                      secondaryWord: AppTexts.secondaryMainWord,
+                      mainWord: getText('firstMainWord'),
+                      secondaryWord: getText('secondaryMainWord'),
                     ),
                   ),
                   const Spacer(
@@ -49,8 +56,8 @@ class GetStartedPage extends GetView<GetStartedController>
                     child: DelayedDisplay(
                       delay: getDelayDuration(),
                       child: TitleWithDescription(
-                        title: capitalize(AppTexts.aboutYou),
-                        description: AppTexts.getStartedDescription,
+                        title: capitalize(getText('aboutYou')),
+                        description: getText('getStartedDescription'),
                       ),
                     ),
                   ),
@@ -60,9 +67,9 @@ class GetStartedPage extends GetView<GetStartedController>
                   Theme(
                     data: Theme.of(context).copyWith(
                       colorScheme: Theme.of(context).colorScheme.copyWith(
-                            primary: Colors.transparent,
-                            secondary: Colors.transparent,
-                          ),
+                        primary: Colors.transparent,
+                        secondary: Colors.transparent,
+                      ),
                     ),
                     child: GetStartedCardsScrollView(
                       delay: getDelayDuration(),
@@ -73,7 +80,7 @@ class GetStartedPage extends GetView<GetStartedController>
                   ),
                   Container(
                     margin:
-                        const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
                     child: DelayedDisplay(
                       delay: getDelayDuration(),
                       child: Row(
@@ -84,15 +91,15 @@ class GetStartedPage extends GetView<GetStartedController>
                               capitalize(''),
                               style: TextStyle(
                                 color:
-                                    const Color(0xffffffff).withOpacity(0.42),
+                                const Color(0xffffffff).withOpacity(0.42),
                               ),
                             ),
                           ),
-                          IntrinsicHeight(
+                          const IntrinsicHeight(
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
-                                const SizedBox(width: 15),
+                                SizedBox(width: 15),
                               ],
                             ),
                           ),

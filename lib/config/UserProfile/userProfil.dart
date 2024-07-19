@@ -20,7 +20,7 @@ class UserProfileStats {
     {
       "title": "Cardio",
       "value": "0",
-      "img": "assets/img//loginOverlayImg.png",
+      "img": "assets/img/loginOverlayImg.png",
     },
      {
       "title": "Crossfit",

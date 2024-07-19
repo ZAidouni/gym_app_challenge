@@ -43,21 +43,19 @@ class SignUpPage extends GetView<SignUpController> with DelayHelperMixin {
                   maxWidth: MediaQuery.of(context).size.width,
                 ),
                 child: Container(
-                  margin:
-                      const EdgeInsets.symmetric(horizontal: 15, vertical: 0),
+                  margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 0),
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      const Spacer(),
+                      const Spacer(flex: 2),
                       DelayedDisplay(
                         delay: getDelayDuration(),
                         child: MainScreenTitle(
-                            mainWord: AppTexts.firstMainWord,
-                            secondaryWord: AppTexts.secondaryMainWord),
+                          mainWord: AppTexts.firstMainWord,
+                          secondaryWord: AppTexts.secondaryMainWord,
+                        ),
                       ),
-                      const Spacer(
-                        flex: 2,
-                      ),
+                      const SizedBox(height: 20),
                       DelayedDisplay(
                         delay: getDelayDuration(),
                         child: TitleWithDescription(
@@ -65,9 +63,7 @@ class SignUpPage extends GetView<SignUpController> with DelayHelperMixin {
                           description: AppTexts.signUpDescription,
                         ),
                       ),
-                         const SizedBox(
-                        height: 30,
-                      ),
+                      const SizedBox(height: 30),
                       DelayedDisplay(
                         delay: getDelayDuration(),
                         child: CustomTextField(
@@ -76,9 +72,7 @@ class SignUpPage extends GetView<SignUpController> with DelayHelperMixin {
                           label: capitalize(AppTexts.username),
                         ),
                       ),
-                      const SizedBox(
-                        height: 30,
-                      ),
+                      const SizedBox(height: 20),
                       DelayedDisplay(
                         delay: getDelayDuration(),
                         child: CustomTextField(
@@ -87,9 +81,7 @@ class SignUpPage extends GetView<SignUpController> with DelayHelperMixin {
                           label: capitalize(AppTexts.email),
                         ),
                       ),
-                      const SizedBox(
-                        height: 30,
-                      ),
+                      const SizedBox(height: 20),
                       DelayedDisplay(
                         delay: getDelayDuration(),
                         child: CustomTextField(
@@ -99,59 +91,47 @@ class SignUpPage extends GetView<SignUpController> with DelayHelperMixin {
                           obscureText: true,
                         ),
                       ),
-                      const Spacer(),
-                      Column(
-                        children: [
-                          DelayedDisplay(
-                            delay: getDelayDuration(),
-                            child: CustomButton(
-                              onPressed: () {
-                                controller.createNewAccount(
-                                  email: controller.signUpEmailController.text
-                                      .trim(),
-                                      siret: '',
-                                  password: controller
-                                      .signUpPasswordController.text
-                                      .trim(),
-                                  username: controller.signUpUserController.text
-                                      .trim(),
-                                );
-                              },
-                              isRounded: false,
-                              text: capitalize(AppTexts.signUp),
-                              isOutlined: true,
+                      const SizedBox(height: 30),
+                      DelayedDisplay(
+                        delay: getDelayDuration(),
+                        child: CustomButton(
+                          onPressed: () {
+                            controller.createNewAccount(
+                              email: controller.signUpEmailController.text.trim(),
+                              siret: '',
+                              password: controller.signUpPasswordController.text.trim(),
+                              username: controller.signUpUserController.text.trim(),
+                            );
+                          },
+                          isRounded: false,
+                          text: capitalize(AppTexts.signUp),
+                          isOutlined: true,
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      DelayedDisplay(
+                        delay: getDelayDuration(),
+                        child: GestureDetector(
+                          onTap: () {
+                            controller.handleGoingToLoginPage();
+                          },
+                          child: Text(
+                            capitalize(AppTexts.alreadyHaveAnAccount),
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: Theme.of(context).primaryColor,
+                              decoration: TextDecoration.underline,
                             ),
                           ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          DelayedDisplay(
-                            delay: getDelayDuration(),
-                            child: GestureDetector(
-                              onTap: () {
-                                controller.handleGoingToLoginPage();
-                              },
-                              child: Text(
-                                capitalize(AppTexts.alreadyHaveAnAccount),
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  color: Theme.of(context).primaryColor,
-                                  decoration: TextDecoration.underline,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
+                        ),
                       ),
-                      const SizedBox(
-                        height: 10,
-                      ),
+                      const Spacer(flex: 1),
                     ],
                   ),
                 ),
               ),
             ),
-          )
+          ),
         ],
       ),
     );

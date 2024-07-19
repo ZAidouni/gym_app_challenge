@@ -2,15 +2,15 @@
 // to-do: correct spells, search for more texts in app if I forget to add them here
 class AppTexts {
   static String error = "Error";
-  static String firstMainWord = "hard";
-  static String secondaryMainWord = "element";
+  static String firstMainWord = "Go";
+  static String secondaryMainWord = "Coach";
   static String welcome = "welcome";
   static String welcomeDescription =
       "This is a workout app that will help you to get fit and stay fit.";
   static String getStarted = "get started";
   static String login = "login";
-  static String changeLaungage = "change laungage";
-  static String chooseLaungage = "choose laungage";
+  static String changeLaungage = "change language";
+  static String chooseLaungage = "choose language";
   static String primaryLaungage = "en";
   static String secondaryLaungage = "fr";
   static String aboutYou = "about you";
@@ -20,9 +20,9 @@ class AppTexts {
   static String next = "Next";
   static String signIn = "sign in";
   static String signUp = "sign up";
-    static String publier = "publier";
+  static String publier = "publier";
   static String loginDescription =
-      "Train and live the new experience of exercising at home";
+      "Join us today and transform your fitness goals into reality!";
   static String email = "email";
   static String password = "password";
   static String forgetPassword = "forgot password ?";
@@ -34,11 +34,11 @@ class AppTexts {
       "DON'T WORRY, WE CAN HELP YOU TO RESET YOUR PASSWORD";
   static String emailSentText =
       "We have sent you an email to verify your account. Please check your inbox and click the link to verify it";
-   static const String coachVerif = 
-    "🚀 Félicitations ! Votre compte est presque prêt à être utilisé. 🎉\n\n"
-    "Nous sommes en train de vérifier les détails de votre compte et tout sera opérationnel sous peu. "
-    "Merci pour votre patience et soyez prêts pour une expérience géniale avec nous !\n\n"
-    "À très bientôt ! 👋";
+   static const String coachVerif =
+    "🚀 Congratulations! Your account is almost ready to use soon ! 🎉\n\n"
+    "We are verifying your account details and everything will be up and running shortly. "
+    "hank you for your patience and get ready for an awesome experience with us!\n\n"
+    "See you soon !👋";
   static String done = "done";
   static String reSendEmailVerification = "re-send email verification";
   static String signUpDescription =
@@ -103,5 +103,27 @@ class AppTexts {
   // static String basedOnReviews = "based on users reviews";
   // static String basedOnReviews = "based on users reviews";
   // static String basedOnReviews = "based on users reviews";
+// text.dart
 
+  //fonction de traduction de texte
+  static String getText(String key) {
+    switch (key) {
+      case 'error':
+        return error;
+      case 'firstMainWord':
+        return firstMainWord;
+      case 'secondaryMainWord':
+        return secondaryMainWord;
+      case 'welcome':
+        return welcome;
+    // Add cases for all your existing text strings here
+      case 'coachVerif':
+        return coachVerif;
+      case 'done':
+        return done;
+      default:
+        return key;
+    }
+  }
 }
+

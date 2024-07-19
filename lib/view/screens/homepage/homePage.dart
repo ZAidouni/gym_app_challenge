@@ -16,7 +16,7 @@ import 'componenets/HomePageSearchBar.dart';
 import 'componenets/ItemsSwitchTiles.dart';
 import 'componenets/find_your_workout.dart';
 import 'componenets/playButton.dart';
-import 'componenets/tabBarViewSectionsHome.dart';
+import 'componenets/tabBarViewSections.dart';
 import 'componenets/usernameAndProfile.dart';
 
 class HomePage extends StatefulWidget {
@@ -136,7 +136,7 @@ class _HomePageState extends State<HomePage> {
                               width: 2,
                             ),
                           ),
-                            labelPadding: EdgeInsets.symmetric(horizontal:20, vertical: 8), // Ajustez les valeurs selon vos besoins
+                            labelPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 8), // Ajustez les valeurs selon vos besoins
                           controller: _tabx.workOutTabController,
                           tabs: _tabx.workOutTabs,
                         ),
@@ -149,7 +149,7 @@ class _HomePageState extends State<HomePage> {
                           controller: _tabx.workOutTabController,
                           children: [
                             Center(
-                              child: TabBarViewSectionHome(
+                              child: TabBarViewSection(
                                 title: capitalize(
                                   'Full body',
                                 ),
@@ -157,7 +157,7 @@ class _HomePageState extends State<HomePage> {
                               ),
                             ),
                             Center(
-                              child: TabBarViewSectionHome(
+                              child: TabBarViewSection(
                                 title: capitalize(
                                   'Legs',
                                 ),
@@ -165,21 +165,21 @@ class _HomePageState extends State<HomePage> {
                               ),
                             ),
                             Center(
-                              child: TabBarViewSectionHome(
+                              child: TabBarViewSection(
                                   title: capitalize(
                                     'Hard workout',
                                   ),
                                   dataList: WorkoutsList.hardWorkoutsList),
                             ),
                             Center(
-                              child: TabBarViewSectionHome(
+                              child: TabBarViewSection(
                                   title: capitalize(
                                     'Cardio',
                                   ),
                                   dataList: WorkoutsList.fullBodyWorkoutsList),
                             ),
                             Center(
-                              child: TabBarViewSectionHome(
+                              child: TabBarViewSection(
                                   title: capitalize(
                                     'Crossfit',
                                   ),

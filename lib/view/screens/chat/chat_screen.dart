@@ -8,6 +8,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import '../../../controller/userController/userController.dart';
 import '../gym/sessions_page.dart';
 
 String randomString() {
@@ -28,6 +29,7 @@ class ChatScreen extends StatefulWidget {
 class _ChatScreenState extends State<ChatScreen> {
   final List<types.Message> _messages = [];
   final _user = FirebaseAuth.instance.currentUser;
+  final userInformationController = Get.find<UserInformationController>();
 
   @override
   void initState() {
@@ -69,7 +71,7 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   Widget build(BuildContext context) => Scaffold(
     appBar: AppBar(
-      title: const Text('Conversation')
+      title: const Text('Conversation'),
     ),
     body: _user == null
         ? const Center(child: CircularProgressIndicator())
@@ -120,6 +122,29 @@ class _ChatScreenState extends State<ChatScreen> {
     );
   }
 
+  Widget customMessageBuilder(types.Message message, {required int messageWidth, required bool useBubbleRtlAlignment}) {
+    if (message is types.TextMessage) {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            message.author.firstName ?? '',
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 5),
+          ChatBubble(
+            message: message,
+            isUser: message.author.id == _user!.uid,
+          ),
+        ],
+      );
+    }
+    return const SizedBox.shrink();
+  }
+
   void _addMessage(types.Message message) async {
     try {
       await FirebaseFirestore.instance
@@ -128,7 +153,7 @@ class _ChatScreenState extends State<ChatScreen> {
           .collection('messages')
           .add({
         'authorId': _user!.uid,
-        'authorName': _user!.displayName,
+        'authorName': userInformationController.username.value,
         'authorImageUrl': _user!.photoURL,
         'createdAt': DateTime.now().millisecondsSinceEpoch,
         'text': (message as types.TextMessage).text,
@@ -143,7 +168,7 @@ class _ChatScreenState extends State<ChatScreen> {
     final textMessage = types.TextMessage(
       author: types.User(
         id: _user!.uid,
-        firstName: _user!.displayName ?? "User",
+        firstName: userInformationController.username.value,
         imageUrl: _user!.photoURL ?? 'https://www.pngall.com/wp-content/uploads/12/Avatar-Profile.png',
       ),
       createdAt: DateTime.now().millisecondsSinceEpoch,
@@ -168,7 +193,7 @@ class _ChatScreenState extends State<ChatScreen> {
       final message = types.ImageMessage(
         author: types.User(
           id: _user!.uid,
-          firstName: _user!.displayName ?? "User",
+          firstName: userInformationController.username.value,
           imageUrl: _user!.photoURL ?? 'https://www.pngall.com/wp-content/uploads/12/Avatar-Profile.png',
         ),
         createdAt: DateTime.now().millisecondsSinceEpoch,
@@ -182,5 +207,31 @@ class _ChatScreenState extends State<ChatScreen> {
 
       _addMessage(message);
     }
+  }
+}
+
+class ChatBubble extends StatelessWidget {
+  const ChatBubble({super.key, required this.message, required this.isUser});
+
+  final types.TextMessage message;
+  final bool isUser;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      alignment: isUser ? Alignment.centerRight : Alignment.centerLeft,
+      margin: const EdgeInsets.symmetric(vertical: 5),
+      child: Container(
+        padding: const EdgeInsets.all(10),
+        decoration: BoxDecoration(
+          color: isUser ? Colors.blue : Colors.grey,
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Text(
+          message.text,
+          style: const TextStyle(color: Colors.white),
+        ),
+      ),
+    );
   }
 }

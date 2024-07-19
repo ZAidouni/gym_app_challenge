@@ -103,6 +103,7 @@ class ForgotPasswordPage extends StatelessWidget {
                         ),
                       ),
                   const SizedBox(height: 20),
+
                 ],
               ),
             ),

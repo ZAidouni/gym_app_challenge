@@ -4,6 +4,7 @@ import 'package:work_out/controller/authControllers/signOutController.dart';
 import 'package:work_out/controller/functionsController.dart';
 import 'package:work_out/config/images%20sources.dart';
 import 'package:work_out/config/text.dart';
+import 'package:work_out/config/text_fr.dart';
 import 'package:work_out/view/widgets/general_widgets/button.dart';
 
 import '../../../controller/authControllers/emailVerficationController.dart';
@@ -14,8 +15,20 @@ class EmailCoachPage extends StatelessWidget {
   //depend. injection
   final FunctionsController controller = Get.put(FunctionsController());
   final EmailVerificatioController emailVerificatioController =
-      Get.put(EmailVerificatioController());
+  Get.put(EmailVerificatioController());
   final SignOutController signOutController = Get.put(SignOutController());
+
+  // Add this to manage the selected language
+  final RxString selectedLanguage = 'en'.obs;
+
+  // Helper method to get the text based on the selected language
+  String getText(String key) {
+    if (selectedLanguage.value == 'fr') {
+      return AppTextsFr.getText(key);
+    } else {
+      return AppTexts.getText(key);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +42,6 @@ class EmailCoachPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             mainAxisSize: MainAxisSize.max,
             children: [
-
               const Spacer(),
               Container(
                 decoration: BoxDecoration(
@@ -50,29 +62,28 @@ class EmailCoachPage extends StatelessWidget {
                       const SizedBox(
                         height: 30,
                       ),
-                      Text(
-                        AppTexts.coachVerif,
+                      Obx(() => Text(
+                        getText('coachVerif'),
                         textAlign: TextAlign.center,
                         style: const TextStyle(
                           fontSize: 16,
                           color: Colors.white,
                         ),
-                      ),
+                      )),
                     ],
                   ),
                 ),
               ),
               const Spacer(),
-              CustomButton(
-                  text: capitalize(AppTexts.done),
+              Obx(() => CustomButton(
+                  text: capitalize(getText('done')),
                   isOutlined: false,
                   onPressed: () {
-signOutController.signOut();             
-     }),
+                    signOutController.signOut();
+                  })),
               const SizedBox(
                 height: 20,
               ),
-             
             ],
           ),
         ),
