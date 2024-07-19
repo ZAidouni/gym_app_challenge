@@ -1,4 +1,5 @@
 import 'package:delayed_display/delayed_display.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:work_out/config/Colors.dart';
@@ -14,7 +15,6 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:work_out/services/openai_service.dart';
 import 'package:work_out/view/screens/coach/my_sessions_page.dart';
-
 class AddGroupSessionPage extends StatefulWidget {
   @override
   _AddGroupSessionPageState createState() => _AddGroupSessionPageState();
@@ -32,8 +32,8 @@ class _AddGroupSessionPageState extends State<AddGroupSessionPage> with DelayHel
   final TextEditingController _durationInMinutesController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
   final TextEditingController _dateController = TextEditingController();
-    final TextEditingController _localisation = TextEditingController();
-
+  final TextEditingController _localisation = TextEditingController();
+    final TextEditingController generatedDescription = TextEditingController();
 
   // State variables for boolean values
   bool _isWorkoutOfDay = false;
@@ -41,12 +41,12 @@ class _AddGroupSessionPageState extends State<AddGroupSessionPage> with DelayHel
   // Dropdown values
   String? _selectedExerciseType;
   String? _selectedRating;
-
   final List<String> _exerciseTypes = [
+    'Full body',
+    'Legs',
+    'Hard workout',
     'Cardio',
-    'Force',
-    'Souplesse',
-    'Équilibre',
+    'Crossfit'
   ];
 
   final List<String> _ratings = [
@@ -56,7 +56,6 @@ class _AddGroupSessionPageState extends State<AddGroupSessionPage> with DelayHel
     '4',
     '5',
   ];
-
 
   // Common decoration for both text fields and dropdowns
   InputDecoration _inputDecoration(String label) {
@@ -97,6 +96,55 @@ class _AddGroupSessionPageState extends State<AddGroupSessionPage> with DelayHel
       setState(() {
         _dateController.text = DateFormat('dd/MM/yyyy').format(pickedDate);
       });
+    }
+  }
+
+  Future<void> _handleSubmit() async {
+    if (_formKey.currentState?.validate() ?? false) {
+      // Gather the data
+      final openAIService = OpenAIService();
+    final prompt =
+        'Génère moi une review en max 60 mots pour cet exercise creer par le coach en se basant sur le titre de l\'exercie ($_workOutTitleController), le nombre de mouvement ($_movesNumberController), le nombre de repétition ($_setsNumberController) et la description ($_descriptionController)';
+
+   
+      final generatedDescription =
+          await openAIService.generateDescription(prompt);
+      final Map<String, dynamic> data = {
+        'workOutTitle': _workOutTitleController.text,
+        'timeLeftInHour': _timeLeftInHourController.text,
+        'movesNumber': _movesNumberController.text,
+        'setsNumber': _setsNumberController.text,
+        'durationInMinutes': _durationInMinutesController.text,
+        'description': _descriptionController.text,
+        'date': _dateController.text,
+        'localisation': _localisation.text,
+        'exerciseType': _selectedExerciseType,
+        'reviews': generatedDescription,
+        'rating': _selectedRating,
+        'isWorkoutOfDay': _isWorkoutOfDay,
+        'isActive': true,
+      };
+
+      try {
+        // Add data to Firestore
+        await FirebaseFirestore.instance.collection('coach_sessions').add(data);
+
+        // Show success message and navigate to the next page
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Séance ajoutée avec succès !')),
+        );
+        Get.to(() => CoachSessionsPage());
+      } catch (e) {
+        // Handle exceptions
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Erreur : $e')),
+        );
+      }
+    } else {
+      // If the form is not valid, show an error message
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Veuillez remplir tous les champs correctement.')),
+      );
     }
   }
 
@@ -211,8 +259,8 @@ class _AddGroupSessionPageState extends State<AddGroupSessionPage> with DelayHel
                               if (value == null || value.isEmpty) {
                                 return 'Ce champ est requis';
                               }
-                                if (!value.isNum) {
-                                return 'veuillez entrez un nombre';
+                              if (!value.isNum) {
+                                return 'Veuillez entrer un nombre';
                               }
                               return null;
                             },
@@ -230,7 +278,7 @@ class _AddGroupSessionPageState extends State<AddGroupSessionPage> with DelayHel
                                 return 'Ce champ est requis';
                               }
                               if (!value.isNum) {
-                                return 'veuillez entrez un nombre';
+                                return 'Veuillez entrer un nombre';
                               }
                               return null;
                             },
@@ -247,8 +295,8 @@ class _AddGroupSessionPageState extends State<AddGroupSessionPage> with DelayHel
                               if (value == null || value.isEmpty) {
                                 return 'Ce champ est requis';
                               }
-                                if (!value.isNum) {
-                                return 'veuillez entrez un nombre';
+                              if (!value.isNum) {
+                                return 'Veuillez entrer un nombre';
                               }
                               return null;
                             },
@@ -265,8 +313,8 @@ class _AddGroupSessionPageState extends State<AddGroupSessionPage> with DelayHel
                               if (value == null || value.isEmpty) {
                                 return 'Ce champ est requis';
                               }
-                                if (!value.isNum) {
-                                return 'veuillez entrez un nombre';
+                              if (!value.isNum) {
+                                return 'Veuillez entrer un nombre';
                               }
                               return null;
                             },
@@ -382,74 +430,7 @@ class _AddGroupSessionPageState extends State<AddGroupSessionPage> with DelayHel
                         DelayedDisplay(
                           delay: getDelayDuration(),
                           child: CustomButton(
-                            onPressed: () async {
-                              if (_formKey.currentState?.validate() ?? false) {
-                                
-    final openAIService = OpenAIService();
-    final prompt =
-        'Génère moi une review en max 60 mots pour cet exercise creer par le coach en se basant sur le titre de l\'exercie ($_workOutTitleController), le nombre de mouvement ($_movesNumberController), le nombre de repétition ($_setsNumberController) et la description ($_descriptionController)';
-
-   
-      final generatedDescription =
-          await openAIService.generateDescription(prompt);
-
-  
-  
-                                // Gather the data
-                                final Map<String, dynamic> data = {
-                                  'workOutTitle': _workOutTitleController.text,
-                                  'timeLeftInHour': _timeLeftInHourController.text,
-                                  'movesNumber': _movesNumberController.text,
-                                  'setsNumber': _setsNumberController.text,
-                                  'durationInMinutes': _durationInMinutesController.text,
-                                  'description': _descriptionController.text,
-                                  'date': _dateController.text,
-                                  'localisation': _localisation.text,
-                                  'exerciseType': _selectedExerciseType,
-                                  'reviews': generatedDescription,
-                                  'rating': _selectedRating,
-                                  'isWorkoutOfDay': _isWorkoutOfDay,
-                                };
-                                // Convert data to JSON
-                                final String jsonData = jsonEncode(data);
-                                // URL of your backend endpoint
-                                final String url = 'https://example.com/api/group-session'; // Replace with your backend URL
-
-                                try {
-                                  // Send POST request
-                                  final response = await http.post(
-                                    Uri.parse(url),
-                                    headers: <String, String>{
-                                      'Content-Type': 'application/json; charset=UTF-8',
-                                    },
-                                    body: jsonData,
-                                  );
-
-                                  if (true) {
-                                    // If the server returns a 200 OK response, consider it a success
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(content: Text('Session added successfully!')),
-                                    );
-                                    Get.to(() => CoachSessionsPage());
-                                  } else {
-                                    // If the server did not return a 200 OK response, handle it
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(content: Text('Failed to add session.')),
-                                    );
-                                  }
-                                } catch (e) {
-                                  // Handle exceptions, e.g., network issues
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(content: Text('Error: $e')),
-                                  );
-                                }
-                              } else {
-                                // If the form is not valid, show an error message
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(content: Text('Please fill all fields correctly.')),
-                                );
-                              }
-                            },
+                            onPressed: _handleSubmit,
                             isRounded: false,
                             text: AppTexts.publier,
                             isOutlined: false,

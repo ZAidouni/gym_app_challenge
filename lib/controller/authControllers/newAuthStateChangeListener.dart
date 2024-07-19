@@ -20,13 +20,13 @@ class NewAuthStateChangeListener extends GetxController {
   // Auth state handler
   handleTheUserState(User? user) async {
     DocumentReference userDocRef = FirebaseFirestore.instance.collection("aboutUsers").doc(user?.uid);
-
     // Obtenez le document utilisateur
-    DocumentSnapshot userDoc = await userDocRef.get();
+    
     if (user == null) {
       // print("no user / user is signed out");
       Get.offAll(() => WelcomePage());
     } else {
+      DocumentSnapshot userDoc = await userDocRef.get();
       if (!user.emailVerified && userDoc.get("siret") == "" ) {
         Get.offAll(() => EmailVerificatioPage());
 
