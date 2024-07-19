@@ -3,7 +3,14 @@ import 'package:get/get.dart';
 
 import '../chat/chat_screen.dart';
 
-class SessionsPage extends StatelessWidget {
+class SessionsPage extends StatefulWidget {
+  @override
+  _SessionsPageState createState() => _SessionsPageState();
+}
+
+class _SessionsPageState extends State<SessionsPage> {
+  bool showActiveSessions = true;
+
   // Simulated list of sessions with titles and images
   final List<Map<String, dynamic>> sessions = [
     {
@@ -11,23 +18,30 @@ class SessionsPage extends StatelessWidget {
       "title": "Séance de Cardio",
       "image": "assets/img/welcomeOverlayImg.png",
       "participants": 10, // Example participant count
+      "isActive": true,
     },
     {
       "id": "session2",
       "title": "Séance de Musculation",
       "image": "assets/img/welcomeOverlayImg.png",
       "participants": 5, // Example participant count
+      "isActive": true,
     },
     {
       "id": "session3",
       "title": "Séance de Yoga",
       "image": "assets/img/welcomeOverlayImg.png",
       "participants": 20, // Example participant count
+      "isActive": false,
     },
   ];
 
   @override
   Widget build(BuildContext context) {
+    List<Map<String, dynamic>> filteredSessions = sessions
+        .where((session) => session["isActive"] == showActiveSessions)
+        .toList();
+
     return Scaffold(
       backgroundColor: const Color(0xff131429),
       appBar: AppBar(
@@ -38,6 +52,17 @@ class SessionsPage extends StatelessWidget {
             color: Colors.white,
           ),
         ),
+        actions: [
+          IconButton(
+            icon: Icon(showActiveSessions ? Icons.filter_alt_outlined : Icons.archive_outlined),
+             color: Colors.white,
+            onPressed: () {
+              setState(() {
+                showActiveSessions = !showActiveSessions;
+              });
+            },
+          ),
+        ],
       ),
       body: GridView.builder(
         padding: EdgeInsets.all(10),
@@ -47,9 +72,9 @@ class SessionsPage extends StatelessWidget {
           mainAxisSpacing: 10,
           childAspectRatio: 0.75,
         ),
-        itemCount: sessions.length,
+        itemCount: filteredSessions.length,
         itemBuilder: (context, index) {
-          final session = sessions[index];
+          final session = filteredSessions[index];
           return Card(
             color: const Color(0xff1C1F2E),
             child: Column(
@@ -84,7 +109,7 @@ class SessionsPage extends StatelessWidget {
                             padding: EdgeInsets.symmetric(vertical: 10),
                           ),
                           onPressed: () {
-                            Get.to(() => ChatScreen(sessionId: session["id"]));
+                            Get.to(() => ChatScreen(sessionId: session["id"], isActive: session["isActive"]));
                           },
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
