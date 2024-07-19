@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../chat/chat_screen.dart';
 
 class CoachSessionsPage extends StatefulWidget {
@@ -12,7 +11,7 @@ class _SessionsPageState extends State<CoachSessionsPage> {
   bool showActiveSessions = true;
 
   // Simulated list of sessions with titles and images
-  final List<Map<String, dynamic>> sessions = [
+  List<Map<String, dynamic>> sessions = [
     {
       "id": "session1",
       "title": "Séance de Cardio",
@@ -55,7 +54,7 @@ class _SessionsPageState extends State<CoachSessionsPage> {
         actions: [
           IconButton(
             icon: Icon(showActiveSessions ? Icons.filter_alt_outlined : Icons.archive_outlined),
-             color: Colors.white,
+            color: Colors.white,
             onPressed: () {
               setState(() {
                 showActiveSessions = !showActiveSessions;
@@ -129,6 +128,10 @@ class _SessionsPageState extends State<CoachSessionsPage> {
                           ),
                           onPressed: () {
                             // Action for the delete button
+                            setState(() {
+                              // Remove the session from the list
+                              sessions.remove(session);
+                            });
                           },
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
