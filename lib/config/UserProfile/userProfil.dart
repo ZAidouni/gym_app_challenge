@@ -4,7 +4,7 @@ class UserProfileStats {
      static List stats = [
     {
       "title": "Full body",
-      "value": "25",
+      "value": "5",
       "img": "assets/img/welcomePageOverlay.png",
     },
     {
