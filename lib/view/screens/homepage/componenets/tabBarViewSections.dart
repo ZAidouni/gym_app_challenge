@@ -81,7 +81,7 @@ class TabBarViewSection extends StatelessWidget {
                           AppTexts.somethingWrong,
                     ),
                     imagePath:
-                        dataList[index]["imagePath"] ?? ImgSrc.noImgAvailable),
+                        dataList[index]["imagePath"]),
               )
             ],
           ),
