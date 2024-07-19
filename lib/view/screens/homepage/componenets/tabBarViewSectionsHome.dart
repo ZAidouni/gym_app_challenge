@@ -85,7 +85,7 @@ class TabBarViewSectionHome extends StatelessWidget {
                 title: capitalize(
                   item["workOutTitle"] ?? AppTexts.somethingWrong,
                 ),
-                imagePath: item["imagePath"] ?? ImgSrc.noImgAvailable,
+                imagePath: item["imagePath"],
               );
             },
           ),
