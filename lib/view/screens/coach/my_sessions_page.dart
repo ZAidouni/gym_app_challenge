@@ -3,7 +3,14 @@ import 'package:get/get.dart';
 
 import '../chat/chat_screen.dart';
 
-class CoachSessionsPage extends StatelessWidget {
+class CoachSessionsPage extends StatefulWidget {
+  @override
+  _SessionsPageState createState() => _SessionsPageState();
+}
+
+class _SessionsPageState extends State<CoachSessionsPage> {
+  bool showActiveSessions = true;
+
   // Simulated list of sessions with titles and images
   final List<Map<String, dynamic>> sessions = [
     {
@@ -11,23 +18,30 @@ class CoachSessionsPage extends StatelessWidget {
       "title": "Séance de Cardio",
       "image": "assets/img/welcomeOverlayImg.png",
       "participants": 10, // Example participant count
+      "isActive": true,
     },
     {
       "id": "session2",
       "title": "Séance de Musculation",
       "image": "assets/img/welcomeOverlayImg.png",
       "participants": 5, // Example participant count
+      "isActive": true,
     },
     {
       "id": "session3",
       "title": "Séance de Yoga",
       "image": "assets/img/welcomeOverlayImg.png",
       "participants": 20, // Example participant count
+      "isActive": false,
     },
   ];
 
   @override
   Widget build(BuildContext context) {
+    List<Map<String, dynamic>> filteredSessions = sessions
+        .where((session) => session["isActive"] == showActiveSessions)
+        .toList();
+
     return Scaffold(
       backgroundColor: const Color(0xff131429),
       appBar: AppBar(
@@ -38,6 +52,17 @@ class CoachSessionsPage extends StatelessWidget {
             color: Colors.white,
           ),
         ),
+        actions: [
+          IconButton(
+            icon: Icon(showActiveSessions ? Icons.filter_alt_outlined : Icons.archive_outlined),
+             color: Colors.white,
+            onPressed: () {
+              setState(() {
+                showActiveSessions = !showActiveSessions;
+              });
+            },
+          ),
+        ],
       ),
       body: GridView.builder(
         padding: EdgeInsets.all(10),
@@ -47,9 +72,9 @@ class CoachSessionsPage extends StatelessWidget {
           mainAxisSpacing: 10,
           childAspectRatio: 0.75,
         ),
-        itemCount: sessions.length,
+        itemCount: filteredSessions.length,
         itemBuilder: (context, index) {
-          final session = sessions[index];
+          final session = filteredSessions[index];
           return Card(
             color: const Color(0xff1C1F2E),
             child: Column(
@@ -58,7 +83,7 @@ class CoachSessionsPage extends StatelessWidget {
                 Image.asset(
                   session["image"]!,
                   fit: BoxFit.cover,
-                  height: 120,
+                  height: 100,
                   width: double.infinity,
                 ),
                 Padding(
@@ -67,7 +92,7 @@ class CoachSessionsPage extends StatelessWidget {
                     session["title"]!,
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: 16,
+                      fontSize: 15,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -80,12 +105,11 @@ class CoachSessionsPage extends StatelessWidget {
                       Expanded(
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.blue,
-                            padding: EdgeInsets.symmetric(vertical: 12),
+                            backgroundColor: Colors.green,
+                            padding: EdgeInsets.symmetric(vertical: 10),
                           ),
                           onPressed: () {
-                            
-                            Get.to(() => ChatScreen(sessionId: session["id"]));
+                            Get.to(() => ChatScreen(sessionId: session["id"], isActive: session["isActive"]));
                           },
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -100,8 +124,8 @@ class CoachSessionsPage extends StatelessWidget {
                       Expanded(
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.red,
-                            padding: EdgeInsets.symmetric(vertical: 12),
+                            backgroundColor: Colors.redAccent,
+                            padding: EdgeInsets.symmetric(vertical: 10),
                           ),
                           onPressed: () {
                             // Action for the delete button

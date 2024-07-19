@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:ffi';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
@@ -18,8 +19,9 @@ String randomString() {
 
 class ChatScreen extends StatefulWidget {
   final String sessionId;
+  final bool isActive ;
 
-  const ChatScreen({super.key, required this.sessionId});
+  const ChatScreen({super.key, required this.sessionId, required this.isActive});
 
   @override
   State<ChatScreen> createState() => _ChatScreenState();
@@ -150,8 +152,12 @@ class _ChatScreenState extends State<ChatScreen> {
       id: randomString(),
       text: message.text,
     );
-
-    _addMessage(textMessage);
+     if(widget.isActive){
+      _addMessage(textMessage);
+     } else{
+      _showArchivedWarning();
+     }
+    
   }
 
   void _handleImageSelection() async {
@@ -180,7 +186,24 @@ class _ChatScreenState extends State<ChatScreen> {
         width: image.width.toDouble(),
       );
 
+        if(widget.isActive){
       _addMessage(message);
+     } else {
+_showArchivedWarning();
+     }
     }
   }
+
+  void _showArchivedWarning() {
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(
+      content: Text(
+        'Vous ne pouvez pas envoyer de message dans une discussion archivée.',
+        style: TextStyle(color: Colors.white),
+      ),
+      backgroundColor: Colors.red,
+      duration: Duration(seconds: 3),
+    ),
+  );
+}
 }
